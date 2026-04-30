@@ -1,0 +1,2048 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveM Server Hosting - Turbo Hosting</title>
+    <meta name="description" content="Choose your FiveM hosting plan with enterprise-grade performance, instant setup, and 24/7 support.">
+    <meta name="keywords" content="FiveM hosting, FiveM server hosting, java edition, bedrock edition, mod support">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo.ico" type="image/x-icon">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'text': 'rgb(255, 255, 255)',
+                        'background': 'rgb(26, 28, 30)',
+                        'primary': 'rgb(16, 68, 242)',
+                        'secondary': 'rgb(31, 35, 38)',
+                        'accent': 'rgb(59, 130, 246)',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Include Global Styles -->
+    <style>    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        margin-bottom: 2rem;
+        font-family: 'Inter', sans-serif;
+    }        --text: rgb(255, 255, 255);
+        --background: rgb(26, 28, 30);
+        --section-alt: rgb(39, 43, 46);
+        --primary: rgb(16, 68, 242);
+        --secondary: rgb(31, 35, 38);
+        --accent: rgb(59, 130, 246);
+        --success: rgb(34, 197, 94);
+        --warning: rgb(245, 158, 11);
+        --error: rgb(239, 68, 68);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    /* Remove focus outlines globally */
+    button:focus,
+    input:focus,
+    textarea:focus,
+    select:focus,
+    a:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Glassmorphism Effects */
+    .glass {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .glass-dark {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .glass-card {
+        background: rgba(31, 35, 38, 1);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    /* Navigation Styles */
+    .navbar-transparent {
+        background: transparent;
+        border-bottom: 1px solid transparent;
+    }
+
+    .navbar-scrolled {
+        background: rgba(31, 35, 38, 1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hero Section Styles */
+    .hero-section {
+        min-height: 100vh;
+        background: var(--background);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-image-container {
+        height: 70vh;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+
+    /* Button Styles */
+    .btn-primary {
+        background: rgb(16, 68, 242);
+        color: rgb(255, 255, 255);
+        padding: 8px 24px;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        background: rgb(59, 130, 246);
+    }
+
+    .btn-secondary {
+        background: rgba(31, 35, 38, 1);
+        color: rgb(255, 255, 255);
+        padding: 8px 24px;
+        border-radius: 8px;
+        font-weight: 400;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+        color: var(--text);
+        text-decoration: none;
+    }
+
+    /* Game Card Styles */
+    .game-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .game-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .game-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .game-card:hover .game-image {
+        /* Removed scaling effect */
+    }
+
+    .game-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(16, 68, 242, 0.9);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .game-badge.free {
+        background: rgba(34, 197, 94, 0.9);
+    }
+
+    .game-badge.discount {
+        background: rgba(245, 158, 11, 0.9);
+    }
+
+    /* Search Bar Styles */
+    .search-container {
+        position: relative;
+        max-width: 500px;
+        min-width: 400px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 14px 50px 14px 20px;
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(40, 45, 48, 1);
+        outline: none;
+    }
+
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: white;
+    }
+
+    /* Pricing Cards */
+    .pricing-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 2.5rem;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .pricing-card.popular {
+        border-color: var(--primary);
+        background: rgba(31, 35, 38, 1);
+    }
+
+    .pricing-card.popular::before {
+        content: "Most Popular";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        padding: 6px 24px;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    /* Testimonial Cards */
+    .testimonial-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Section Backgrounds */
+    .section-gradient {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .section-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            padding: 10px 24px;
+            font-size: 0.9rem;
+        }
+        
+        .game-card {
+            border-radius: 16px;
+        }
+        
+        .feature-card,
+        .pricing-card,
+        .testimonial-card {
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        
+        .search-input {
+            padding: 16px 50px 16px 20px;
+            font-size: 1rem;
+        }
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Loading States */
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Utility Classes */
+    .text-gradient {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .bg-gradient {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+
+    .border-gradient {
+        border: 1px solid;
+        border-image: linear-gradient(135deg, var(--primary), var(--accent)) 1;
+    }
+</style>
+</head>
+<body class="bg-background text-text font-inter">
+    <!-- Navigation -->
+    
+<nav class="fixed w-full z-50 transition-all duration-300 navbar-transparent" id="navbar">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="index.php" class="flex items-center">
+                    <img src="images/logo.png" alt="GameHub Logo" class="w-8 h-8 mr-3">
+                    <span class="text-2xl font-bold text-white">Turbo Hosting</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8">
+				<!-- Hosting Dropdown -->
+                <div class="relative group inline-block">
+    <button class="flex items-center text-white/80 hover:text-gray-400 transition-colors py-2 focus:outline-none">
+        Hosting
+        <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+
+    <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="bg-[#d1d5db] rounded-2xl shadow-xl mt-2 overflow-hidden">
+            <div class="p-4 space-y-4">
+				<a href="fivem.php" class="block text-gray-900 hover:text-blue-600 font-medium">FiveM Hosting</a>
+				<a href="minecraft.php" class="block text-gray-900 hover:text-blue-600 font-medium">Minecraft Hosting</a>
+				<a href="discord-bot.php" class="block text-gray-900 hover:text-blue-600 font-medium">Discord Bot Hosting</a>
+				<a href="web-hosting.php" class="block text-gray-900 hover:text-blue-600 font-medium">Web Hosting</a>
+                <a href="#" class="block text-gray-900 hover:text-blue-600 font-medium">VPS Hosting SOON</a>
+            </div>
+        </div>
+    </div>
+</div>
+				<!-- End of Hosting Dropdown -->
+                <a href="contact.php" class="text-white/80 hover:text-gray-400 transition-colors">Contact</a>
+				
+				<!-- Begin of Discord button -->
+				<a href="https://discord.turbohosting.net" class="inline-flex items-center gap-2 bg-white text-[#1a1c1e] px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+  <span>Discord</span>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.2259 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"></path>
+  </svg>
+</a>
+				<!-- End of Discord button -->
+                <a href="https://my.turbohosting.net/login" class="btn-primary">Client Area</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-white/80 hover:text-gray-400 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-dark rounded-lg mt-4 p-6">
+            <div class="flex flex-col space-y-4">
+                				<!-- Hosting Dropdown -->
+                <div class="relative group inline-block">
+    <button class="flex items-center text-white/80 hover:text-gray-400 transition-colors py-2 focus:outline-none">
+        Hosting
+        <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+
+    <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="bg-[#d1d5db] rounded-2xl shadow-xl mt-2 overflow-hidden">
+            <div class="p-4 space-y-4">
+				<a href="fivem.php" class="block text-gray-900 hover:text-blue-600 font-medium">FiveM Hosting</a>
+				<a href="minecraft.php" class="block text-gray-900 hover:text-blue-600 font-medium">Minecraft Hosting</a>
+				<a href="discord-bot.php" class="block text-gray-900 hover:text-blue-600 font-medium">Discord Bot Hosting</a>
+				<a href="web-hosting.php" class="block text-gray-900 hover:text-blue-600 font-medium">Web Hosting</a>
+                <a href="#" class="block text-gray-900 hover:text-blue-600 font-medium">VPS Hosting SOON</a>
+            </div>
+        </div>
+    </div>
+</div>
+                <a href="blog.php" class="text-white/80 hover:text-gray-400 transition-colors py-2">Blog</a>
+                <a href="contact.php" class="text-white/80 hover:text-gray-400 transition-colors py-2">Contact</a>
+                <hr class="border-white/20 my-4">
+                <a href="https://my.turbohosting.net/login" class="btn-primary justify-center">Client Area</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 sm:px-6" style="padding-top: 8rem;">
+        <div class="container mx-auto text-center max-w-4xl">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+                Choose your FiveM Plan
+            </h1>
+            <p class="text-lg sm:text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+                Host your FiveM server with enterprise-grade performance, instant setup, and 24/7 support.
+            </p>
+            </div>
+        
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-12 px-4 sm:px-6">
+        <div class="container mx-auto">
+            <!-- Plans Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                                <div class="glass-card p-6 text-left ">
+                                        
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold mb-4">2GB</h3>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold monthly-price">€3,45</span>
+                        <span class="text-4xl font-bold annually-price hidden">$2.39</span>
+                        <span class="text-white/70 ml-2">
+                            <span class="monthly-term">/month</span>
+                            <span class="annually-term hidden">/month (billed annually)</span>
+                        </span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-white/70 text-sm mb-6">Perfect for small communities</p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-3 mb-8">
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 CPU cores (Ryzen 9 9950X)</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">2GB RAM DDR5</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">30GB NVMe Storage</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 Server Backups Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 Database Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Pterodactyl Panel</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Support 24/7</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">DDoS Protection</span>
+                            </div>
+                                            </div>
+                    
+                    <!-- Get Started Button -->
+                    <a href="https://my.turbohosting.net/products/fx-server/2gb/checkout" class="btn-secondary w-full justify-center">
+                        Get Started →
+                    </a>
+                </div>
+                                <div class="glass-card p-6 text-left ">
+                                        
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold mb-4">4GB</h3>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold monthly-price">€6,45</span>
+                        <span class="text-4xl font-bold annually-price hidden">$3.99</span>
+                        <span class="text-white/70 ml-2">
+                            <span class="monthly-term">/month</span>
+                            <span class="annually-term hidden">/month (billed annually)</span>
+                        </span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-white/70 text-sm mb-6">Great for growing servers</p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-3 mb-8">
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">2 CPU Cores (Ryzen 9 9950X)</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">4GB RAM DDR5</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">50GB NVMe Storage</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 Server Backups Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 Database Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Pterodactyl Panel</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Support 24/7</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">DDoS Protection</span>
+                            </div>
+                                            </div>
+                    
+                    <!-- Get Started Button -->
+                    <a href="https://my.turbohosting.net/products/fx-server/4gb/checkout" class="btn-secondary w-full justify-center">
+                        Get Started →
+                    </a>
+                </div>
+                                <div class="glass-card p-6 text-left border-2 border-primary relative">
+                                            <div class="absolute -top-3 left-6 bg-primary text-white px-3 py-1 text-sm font-bold rounded-full">
+                            MOST POPULAR
+                        </div>
+                                        
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold mb-4">6GB</h3>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold monthly-price">€8,95</span>
+                        <span class="text-4xl font-bold annually-price hidden">$6.39</span>
+                        <span class="text-white/70 ml-2">
+                            <span class="monthly-term">/month</span>
+                            <span class="annually-term hidden">/month (billed annually)</span>
+                        </span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-white/70 text-sm mb-6">Most popular choice</p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-3 mb-8">
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 vCPU (Ryzen 9950x)</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">6GB DDR5 RAM</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">70GB NVMe Storage</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 Server Backups Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 Database Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Pterodactyl Panel</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Support 24/7</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">DDoS Protection</span>
+                            </div>
+                                            </div>
+                    
+                    <!-- Get Started Button -->
+                    <a href="https://my.turbohosting.net/products/fx-server/6gb/checkout" class="btn-primary w-full justify-center">
+                        Get Started →
+                    </a>
+                </div>
+                                <div class="glass-card p-6 text-left ">
+                                        
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold mb-4">8GB</h3>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold monthly-price">€11,95</span>
+                        <span class="text-4xl font-bold annually-price hidden">$10.39</span>
+                        <span class="text-white/70 ml-2">
+                            <span class="monthly-term">/month</span>
+                            <span class="annually-term hidden">/month (billed annually)</span>
+                        </span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-white/70 text-sm mb-6">For large communities</p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-3 mb-8">
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 vCPU (Ryzen 9950x)</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">8GB DDR5 RAM</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">90GB NVMe storage</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 Server Backups Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 Database Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Pterodactyl Panel</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Support 24/7</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">DDoS Protection</span>
+                            </div>
+                                            </div>
+                    
+                    <!-- Get Started Button -->
+                    <a href="https://my.turbohosting.net/products/fx-server/8gb/checkout" class="btn-secondary w-full justify-center">
+                        Get Started →
+                    </a>
+                </div>
+                                <div class="glass-card p-6 text-left ">
+                                        
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold mb-4">10GB</h3>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold monthly-price">€16,95</span>
+                        <span class="text-4xl font-bold annually-price hidden">$15.99</span>
+                        <span class="text-white/70 ml-2">
+                            <span class="monthly-term">/month</span>
+                            <span class="annually-term hidden">/month (billed annually)</span>
+                        </span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-white/70 text-sm mb-6">Maximum performance</p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-3 mb-8">
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">4 vCPU (Ryzen 9950x)</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">10GB DDR5 RAM</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">110GB NVMe storage</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 Server Backups Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 Database Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Pterodactyl Panel</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Support 24/7</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">DDoS Protection</span>
+                            </div>
+                                            </div>
+                    
+                    <!-- Get Started Button -->
+                    <a href="https://my.turbohosting.net/products/fx-server/10gb/checkout" class="btn-secondary w-full justify-center">
+                        Get Started →
+                    </a>
+                </div>
+                                <div class="glass-card p-6 text-left ">
+                                        
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold mb-4">12GB</h3>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold monthly-price">€19,95</span>
+                        <span class="text-4xl font-bold annually-price hidden">$23.99</span>
+                        <span class="text-white/70 ml-2">
+                            <span class="monthly-term">/month</span>
+                            <span class="annually-term hidden">/month (billed annually)</span>
+                        </span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-white/70 text-sm mb-6">Enterprise solution</p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-3 mb-8">
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">4 vCPU (Ryzen 9950x)</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">12GB DDR5 RAM</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">130GB NVMe storage</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">3 Server Backups Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">1 Database Included</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Pterodactyl Panel</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">Support 24/7</span>
+                            </div>
+                                                    <div class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-3 mt-1 text-sm flex-shrink-0"></i>
+                                <span class="text-white/90 text-sm">DDoS Protection</span>
+                            </div>
+                                            </div>
+                    
+                    <!-- Get Started Button -->
+                    <a href="https://my.turbohosting.net/products/fx-server/12gb/checkout" class="btn-secondary w-full justify-center">
+                        Get Started →
+                    </a>
+                </div>
+                            </div>
+        </div>
+    </section>
+
+    <!-- Control Panel Section -->
+    <section class="py-16 px-4 sm:px-6">
+        <div class="container mx-auto max-w-7xl">
+            <div class="glass-card overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-5">
+                    <!-- Left Side - Text Content (60% - 3 columns) -->
+                    <div class="col-span-1 lg:col-span-3 p-8 lg:p-12 space-y-6">
+                        <!-- Title -->
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-white">
+                            Experience the Advanced Control Panel
+                        </h2>
+                        
+                        <!-- Subtitle -->
+                        <p class="text-white/60 text-base leading-relaxed max-w-2xl">
+                            Take full command of your digital infrastructure with our intuitive, custom-built dashboard. Designed for both power users and beginners, our interface provides real-time insights and granular control over every aspect of your services.
+                        </p>
+                        
+                        <!-- Features List -->
+                        <div class="space-y-4 pt-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                                    <i class="fa-solid fa-gear text-primary text-xl"></i>
+                                </div>
+                                <p class="text-white/90 leading-relaxed">
+                                    Fine-tune your environment with ease. Access advanced power settings, modify files directly via our web editor, and manage variables without ever needing to touch an external FTP client.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                                    <i class="fa-solid fa-puzzle-piece text-primary text-xl"></i>
+                                </div>
+                                <p class="text-white/90 leading-relaxed">
+                                     Expand your capabilities with our one-click plugin and extension installer. Whether it’s adding new features to your server or integrating third-party tools, our modular system makes customization effortless
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                                    <i class="fa-solid fa-box text-primary text-xl"></i>
+                                </div>
+                                <p class="text-white/90 leading-relaxed">
+                                    Monitor your performance in real-time. Keep a close eye on CPU, RAM, and storage usage with live analytics, ensuring your applications always have the resources they need to run smoothly.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - Image (40% - 2 columns) -->
+                    <div class="col-span-1 lg:col-span-2 relative overflow-hidden">
+                        <div class="relative h-80 sm:h-96 lg:h-full lg:pt-4">
+                            <!-- Mobile Image -->
+                            <img src="images/dashboard.png" alt="Control Panel" class="lg:hidden w-full h-full object-cover" style="max-width: 180%; transform: translate(20px, 20px) scale(1.1);">
+                            
+                            <!-- Desktop Image -->
+                            <img src="images/dashboard.png" alt="Control Panel" class="hidden lg:block w-full h-full object-cover object-left-top rounded-tl-lg" style="max-width: 220%; transform: translate(0px, 0px);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-4 sm:px-6">
+        <div class="container mx-auto max-w-7xl">
+            <!-- Section Header -->
+            <div class="text-left mb-16">
+                <span class="text-primary font-semibold text-sm uppercase tracking-wide mb-2 block">OUR FEATURES</span>
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">What makes Turbo Hosting Different</h2>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- First Row - 4 Cards -->
+                <!-- Card 1 -->
+                <div class="glass-card p-6 text-left">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Instant Setup</h3>
+                    <p class="text-white/70 text-sm">Get your server running in seconds with our automated deployment system.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-6 text-left">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">DDoS Protection</h3>
+                    <p class="text-white/70 text-sm">Advanced protection against attacks to keep your server online 24/7.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-6 text-left">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">24/7 Support</h3>
+                    <p class="text-white/70 text-sm">Expert support team available around the clock to help you.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-6 text-left">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Auto Backups</h3>
+                    <p class="text-white/70 text-sm">Daily automated backups ensure your data is always safe and secure.</p>
+                </div>
+
+                <!-- Second Row -->
+                <!-- Text Area (spans 2 columns) -->
+                <div class="md:col-span-2 lg:col-span-2 p-8 flex flex-col justify-center">
+                    <p class="text-white/80 text-lg mb-6 leading-relaxed">
+                        At Turbo Hosting, we believe that high-end infrastructure should be accessible to everyone. By combining cutting-edge hardware with a user-first approach, we ensure your projects stay online, secure, and performing at their absolute peak 24/7.
+                    </p>
+                    <button class="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200 w-fit">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-card p-6 text-left">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">High Performance</h3>
+                    <p class="text-white/70 text-sm">Premium hardware and optimized configurations for maximum performance.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="glass-card p-6 text-left">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Easy Management</h3>
+                    <p class="text-white/70 text-sm">Intuitive control panel makes server management simple and efficient.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-4 sm:px-6 bg-secondary/50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-primary font-semibold text-sm uppercase tracking-wide mb-2 block">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">Any Questions? Look Here</h2>
+                <p class="text-white/80 max-w-2xl mx-auto">
+                    Find answers to commonly asked questions about our FiveM hosting services.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Left Column -->
+                <div class="space-y-6">
+                                        <div class="glass-card p-6 rounded-lg">
+                        <button class="faq-btn flex w-full text-left items-start" onclick="toggleFAQ(0)">
+                            <div class="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                                <i class="fas fa-chevron-down transition-transform duration-300" id="faq-icon-0"></i>
+                            </div>
+                            <div class="w-full">
+                                <h4 class="text-lg font-semibold text-white">How quickly can I set up my FiveM server?</h4>
+                            </div>
+                        </button>
+                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="faq-answer-0">
+                            <div class="ml-14 pt-4">
+                                <p class="text-white/80 leading-relaxed">Your FiveM server will be ready within 60 seconds of payment confirmation. Our automated system instantly deploys your server with your chosen configuration and provides immediate access to the control panel.</p>
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="glass-card p-6 rounded-lg">
+                        <button class="faq-btn flex w-full text-left items-start" onclick="toggleFAQ(1)">
+                            <div class="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                                <i class="fas fa-chevron-down transition-transform duration-300" id="faq-icon-1"></i>
+                            </div>
+                            <div class="w-full">
+                                <h4 class="text-lg font-semibold text-white">Do you support txAdmin?</h4>
+                            </div>
+                        </button>
+                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="faq-answer-1">
+                            <div class="ml-14 pt-4">
+                                <p class="text-white/80 leading-relaxed">Yes! We fully support txAdmin.</p>
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="glass-card p-6 rounded-lg">
+                        <button class="faq-btn flex w-full text-left items-start" onclick="toggleFAQ(2)">
+                            <div class="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                                <i class="fas fa-chevron-down transition-transform duration-300" id="faq-icon-2"></i>
+                            </div>
+                            <div class="w-full">
+                                <h4 class="text-lg font-semibold text-white">Can I install artifacts on my server?</h4>
+                            </div>
+                        </button>
+                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="faq-answer-2">
+                            <div class="ml-14 pt-4">
+                                <p class="text-white/80 leading-relaxed">Absolutely! We support an easy to use artifacts changer.</p>
+                            </div>
+                        </div>
+                    </div>
+                                    </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                                        <div class="glass-card p-6 rounded-lg">
+                        <button class="faq-btn flex w-full text-left items-start" onclick="toggleFAQ(3)">
+                            <div class="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                                <i class="fas fa-chevron-down transition-transform duration-300" id="faq-icon-3"></i>
+                            </div>
+                            <div class="w-full">
+                                <h4 class="text-lg font-semibold text-white">What kind of DDoS protection do you provide?</h4>
+                            </div>
+                        </button>
+                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="faq-answer-3">
+                            <div class="ml-14 pt-4">
+                                <p class="text-white/80 leading-relaxed">All our FiveM servers include enterprise-grade DDoS protection at no extra cost. Our advanced filtering systems can handle attacks up to 100+ Gbps, ensuring your server stays online even during targeted attacks.</p>
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="glass-card p-6 rounded-lg">
+                        <button class="faq-btn flex w-full text-left items-start" onclick="toggleFAQ(4)">
+                            <div class="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                                <i class="fas fa-chevron-down transition-transform duration-300" id="faq-icon-4"></i>
+                            </div>
+                            <div class="w-full">
+                                <h4 class="text-lg font-semibold text-white">How do backups work?</h4>
+                            </div>
+                        </button>
+                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="faq-answer-4">
+                            <div class="ml-14 pt-4">
+                                <p class="text-white/80 leading-relaxed">We automatically create daily backups of your entire server, including everything! You can also create manual backups anytime. Restoring is just one click away through your control panel, and you can download backups locally.</p>
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="glass-card p-6 rounded-lg">
+                        <button class="faq-btn flex w-full text-left items-start" onclick="toggleFAQ(5)">
+                            <div class="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                                <i class="fas fa-chevron-down transition-transform duration-300" id="faq-icon-5"></i>
+                            </div>
+                            <div class="w-full">
+                                <h4 class="text-lg font-semibold text-white">Can I upgrade or downgrade my plan anytime?</h4>
+                            </div>
+                        </button>
+                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="faq-answer-5">
+                            <div class="ml-14 pt-4">
+                                <p class="text-white/80 leading-relaxed">Yes! You can upgrade your plan instantly without any downtime. Downgrades are processed at your next billing cycle. All plan changes are prorated, so you only pay for what you use.</p>
+                            </div>
+                        </div>
+                    </div>
+                                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-12 sm:py-16 bg-secondary/50" id="cta">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="lg:py-14 lg:px-20 p-6 sm:p-8 lg:p-10 rounded-2xl bg-gradient-to-r from-primary to-accent flex items-center justify-between flex-col lg:flex-row">
+                <div class="block text-center mb-6 sm:mb-8 lg:text-left lg:mb-0">
+                    <h2 class="font-inter text-2xl sm:text-3xl lg:text-4xl text-white font-semibold mb-3 sm:mb-4 lg:mb-5 lg:mb-2">
+                        Ready to get started?
+                    </h2>
+                    <p class="text-base sm:text-lg lg:text-xl text-white/80 max-w-2xl">
+                        Contact us to get help getting started or if you dont see what you are looking for.
+                    </p>
+                </div>
+                <a href="contact.php" class="flex items-center gap-2 bg-white rounded-full shadow-sm text-sm sm:text-base lg:text-lg text-primary font-semibold py-3 sm:py-4 px-6 sm:px-8 transition-all duration-500 hover:shadow-lg hover:scale-105 w-full sm:w-auto justify-center lg:justify-start">
+                    Get In Touch
+                    <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-3 sm:w-5 sm:h-4">
+                        <path d="M1.75 7L16.4167 7M11.8333 12.5L16.6852 7.64818C16.9907 7.34263 17.1435 7.18985 17.1435 7C17.1435 6.81015 16.9907 6.65737 16.6852 6.35182L11.8333 1.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    
+<footer class="bg-secondary/50 border-t border-white/10">
+    <div class="container mx-auto px-6 py-12">
+        <!-- Main Footer Content -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+            <!-- Brand Section -->
+            <div class="lg:col-span-2">
+                <div class="flex items-center mb-4">
+                    <img src="images/logo.png" alt="Turbo Hosting Logo" class="w-8 h-8 mr-3">
+                    <span class="text-2xl font-bold text-white">Turbo Hosting</span>
+                </div>
+                <p class="text-white/70 mb-6 max-w-md">Turbo Hosting offers high-quality game server hosting with unparalleled performance, reliability, and support.</p>
+                
+                <!-- Social Links -->
+                <div class="flex space-x-4">
+                    <a href="https://discord.gg/xM7ApvF7tb" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/Turbo Hosting" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://youtube.com/@turbohostingnet" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="https://twitch.tv/Turbo Hosting" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-twitch text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Footer Links -->
+                        <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Hosting</h4>
+                <ul class="space-y-3">
+                                        <li>
+                                                <a href="fivem.php" class="text-white/70 hover:text-primary transition-colors">FiveM Hosting</a>
+                    </li>
+                                        <li>
+                                                <a href="minecraft.php" class="text-white/70 hover:text-primary transition-colors">Minecraft Hosting</a>
+                    </li>
+                                        <li>
+                                                <a href="discord-bot.php" class="text-white/70 hover:text-primary transition-colors">Discord Bot Hosting</a>
+                    </li>
+                                        <li>
+                                                <a href="web-hosting.php" class="text-white/70 hover:text-primary transition-colors">Web Hosting</a>
+                    </li>
+                                    </ul>
+            </div>
+                        <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Support</h4>
+                <ul class="space-y-3">
+                                        <li>
+                                                <a href="https://discord.gg/xM7ApvF7tb" class="text-white/70 hover:text-primary transition-colors">Help Center</a>
+                    </li>
+                                        <li>
+                                                <a href="contact.php" class="text-white/70 hover:text-primary transition-colors">Contact Support</a>
+                    </li>
+                                        <li>
+                                                <a href="https://my.turbohosting.net/status" class="text-white/70 hover:text-primary transition-colors">Server Status</a>
+                    </li>
+                                        <li>
+                                                <a href="index.php" class="text-white/70 hover:text-primary transition-colors">Knowledge Base</a>
+                    </li>
+                                    </ul>
+            </div>
+                        <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Company</h4>
+                <ul class="space-y-3">
+                                        <li>
+                                                <a href="blog.php" class="text-white/70 hover:text-primary transition-colors">About Us</a>
+                    </li>
+                                        <li>
+                                                <a href="#" class="text-white/70 hover:text-primary transition-colors">Data Centers</a>
+                    </li>
+                                        <li>
+                                                <a href="terms-of-service.php" class="text-white/70 hover:text-primary transition-colors">Terms of Service</a>
+                    </li>
+                                        <li>
+                                                <a href="privacy-policy.php" class="text-white/70 hover:text-primary transition-colors">Privacy Policy</a>
+                    </li>
+                                    </ul>
+            </div>
+                    </div>
+        
+        <!-- Bottom Footer -->
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-white/60 text-sm mb-4 md:mb-0">
+                © 2026 Turbo Hosting. All rights reserved.
+            </div>
+            
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="privacy-policy.php" class="text-white/60 hover:text-primary transition-colors">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Scripts -->
+    
+<script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('navbar-transparent');
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.add('navbar-transparent');
+            }
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Game search functionality
+    const gameSearchInput = document.getElementById('game-search');
+    const searchResults = document.getElementById('search-results');
+    const searchGrid = document.getElementById('search-grid');
+    const gamesGrid = document.getElementById('games-grid');
+    const allGamesGrid = document.getElementById('all-games-grid');
+    const showAllButton = document.getElementById('show-all-games');
+    const showAllArrow = document.getElementById('show-all-arrow');
+    
+    // Show all games toggle functionality
+    if (showAllButton && allGamesGrid && showAllArrow) {
+        showAllButton.addEventListener('click', function() {
+            if (allGamesGrid.classList.contains('hidden')) {
+                // Show all games above the button
+                allGamesGrid.classList.remove('hidden');
+                // Insert the additional games grid before the button
+                showAllButton.parentNode.parentNode.insertBefore(allGamesGrid, showAllButton.parentNode);
+                showAllArrow.style.transform = 'rotate(180deg)';
+                showAllButton.querySelector('span').textContent = 'Show less games';
+            } else {
+                // Hide additional games
+                allGamesGrid.classList.add('hidden');
+                // Move it back to its original position (after the button)
+                showAllButton.parentNode.parentNode.appendChild(allGamesGrid);
+                showAllArrow.style.transform = 'rotate(0deg)';
+                showAllButton.querySelector('span').textContent = 'Show all games';
+                // Scroll back to the games section
+                gamesGrid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+    }
+    
+    // All games data from PHP
+    const allGames = [{"name":"FiveM","type":"Roleplay","slots":"Ryzen 9 9950X","ram":"DDR5 RAM","image":"assets\/images\/games\/5m-g.jpg","price":"\u20ac3,45","popular":true,"link":"fivem.php"},{"name":"Minecraft","type":"Sandbox","slots":"Ryzen 9 9950X","ram":"NVMe Storage","image":"assets\/images\/games\/mc-g.jpg","price":"\u20ac3,49","popular":false,"link":"minecraft.php"},{"name":"Discord Bot","type":"Hosting","slots":"Ryzen 9 9950X","ram":"24\/7 Online","image":"assets\/images\/games\/discord-g.jpg","price":"\u20ac1,25","popular":true,"link":"discord-bot.php"},{"name":"Web","type":"Hosting","slots":"Ryzen 9 5950x","ram":"24\/7 Online","image":"assets\/images\/games\/sta-je-web-hosting.jpg","price":"\u20ac1,10","popular":false,"link":"web-hosting.php"}];
+    
+    if (gameSearchInput) {
+        let searchTimeout;
+        
+        gameSearchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            // Clear previous timeout
+            clearTimeout(searchTimeout);
+            
+            // Debounce search
+            searchTimeout = setTimeout(() => {
+                if (searchTerm.length > 0) {
+                    performSearch(searchTerm);
+                    // Hide the regular games grid and show all toggle when searching
+                    gamesGrid.style.display = 'none';
+                    allGamesGrid.style.display = 'none';
+                    showAllButton.style.display = 'none';
+                } else {
+                    hideSearchResults();
+                    // Show the regular games grid and show all toggle when not searching
+                    gamesGrid.style.display = 'grid';
+                    if (!allGamesGrid.classList.contains('hidden')) {
+                        allGamesGrid.style.display = 'grid';
+                    }
+                    showAllButton.style.display = 'flex';
+                }
+            }, 300);
+        });
+    }
+    
+    function performSearch(searchTerm) {
+        const filteredGames = allGames.filter(game => {
+            // Make search more flexible by removing special characters and extra spaces
+            const gameName = game.name.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
+            const gameType = game.type.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
+            const searchTermClean = searchTerm.replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
+            
+            // Exact match first
+            if (gameName.includes(searchTermClean) || 
+                gameType.includes(searchTermClean) ||
+                game.name.toLowerCase().includes(searchTerm) ||
+                game.type.toLowerCase().includes(searchTerm)) {
+                return true;
+            }
+            
+            // Fuzzy matching for typos - check if search term is similar to game name
+            return isFuzzyMatch(searchTermClean, gameName) || isFuzzyMatch(searchTermClean, gameType);
+        });
+        
+        if (filteredGames.length > 0) {
+            displaySearchResults(filteredGames);
+        } else {
+            displayNoResults();
+        }
+    }
+    
+    // Simple fuzzy matching function
+    function isFuzzyMatch(search, target) {
+        if (search.length < 3) return false; // Don't fuzzy match very short terms
+        
+        // Check if most characters from search appear in target (allowing for typos)
+        let matchCount = 0;
+        let searchIndex = 0;
+        
+        for (let i = 0; i < target.length && searchIndex < search.length; i++) {
+            if (target[i] === search[searchIndex]) {
+                matchCount++;
+                searchIndex++;
+            }
+        }
+        
+        // If at least 70% of characters match in order, consider it a match
+        const matchPercentage = matchCount / search.length;
+        return matchPercentage >= 0.7;
+    }
+    
+    function displaySearchResults(games) {
+        searchGrid.innerHTML = '';
+        
+        games.forEach(game => {
+            const gameElement = createGameElement(game);
+            searchGrid.appendChild(gameElement);
+        });
+        
+        searchResults.classList.remove('hidden');
+    }
+    
+    function displayNoResults() {
+        searchGrid.innerHTML = `
+            <div class="col-span-full text-center py-8">
+                <i class="fas fa-search text-4xl text-white/30 mb-4"></i>
+                <p class="text-white/70">No games found matching your search.</p>
+            </div>
+        `;
+        searchResults.classList.remove('hidden');
+    }
+    
+    function hideSearchResults() {
+        searchResults.classList.add('hidden');
+    }
+    
+    function createGameElement(game) {
+        const gameCard = document.createElement('div');
+        gameCard.className = 'game-card';
+        
+        const popularBadge = game.popular ? '<div class="game-badge">Popular</div>' : '';
+        
+        gameCard.innerHTML = `
+            <div class="relative aspect-[3/4] overflow-hidden rounded-lg">
+                <img src="${game.image}" alt="${game.name}" class="w-full h-full object-cover">
+                ${popularBadge}
+            </div>
+            <div class="p-4">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">${game.name}</h4>
+                        <p class="text-white/60 text-sm">${game.type}</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xl font-bold text-primary">${game.price}</div>
+                        <div class="text-xs text-white/60">/month</div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-white/70 text-sm">${game.slots} • ${game.ram}</span>
+                </div>
+                <a href="${game.link}" class="btn-primary w-full justify-center text-sm">
+                    <i class="fas fa-server mr-2"></i>
+                    Order Now
+                </a>
+            </div>
+        `;
+        
+        return gameCard;
+    }
+
+    // Animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const animateElements = document.querySelectorAll('.feature-card, .pricing-card, .testimonial-card, .game-card');
+        
+        animateElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    });
+
+    // Pricing card hover effects
+    document.querySelectorAll('.pricing-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('popular')) {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('popular')) {
+                this.style.transform = 'translateY(0) scale(1)';
+            }
+        });
+    });
+
+    // Feature card animations
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('.feature-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(5deg)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('.feature-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            }
+        });
+    });
+
+    // Game card hover effects
+    document.querySelectorAll('.game-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            const badge = this.querySelector('.game-badge');
+            if (badge) {
+                badge.style.transform = 'scale(1.1)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const badge = this.querySelector('.game-badge');
+            if (badge) {
+                badge.style.transform = 'scale(1)';
+            }
+        });
+    });
+
+    // Add loading states to buttons
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#' || this.tagName === 'BUTTON') {
+                e.preventDefault();
+                
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+                this.classList.add('loading');
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.classList.remove('loading');
+                }, 2000);
+            }
+        });
+    });
+
+    // Testimonials auto-rotate (optional enhancement)
+    let currentTestimonial = 0;
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    
+    function rotateTestimonials() {
+        if (testimonials.length > 3) {
+            testimonials.forEach((testimonial, index) => {
+                testimonial.style.display = 'none';
+            });
+            
+            for (let i = 0; i < 3; i++) {
+                const index = (currentTestimonial + i) % testimonials.length;
+                testimonials[index].style.display = 'block';
+            }
+            
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        }
+    }
+    
+    // Auto-rotate testimonials every 5 seconds (if more than 3)
+    if (testimonials.length > 3) {
+        setInterval(rotateTestimonials, 5000);
+    }
+
+    // Stats counter animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('[data-count]');
+        
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            const increment = target / 100;
+            let current = 0;
+            
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    counter.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+            
+            updateCounter();
+        });
+    }
+
+    // Initialize counter animation when stats come into view
+    const statsSection = document.querySelector('#about');
+    if (statsSection) {
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statsObserver.observe(statsSection);
+    }
+
+    // Reviews Carousel Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.getElementById('reviews-carousel');
+        const testimonialDots = document.querySelectorAll('.carousel-dot');
+        
+        if (carousel && testimonialDots.length) {
+            let currentSlide = 0;
+            const totalSlides = 2; // 2 slides total
+            let slideInterval;
+
+            // Function to update carousel position
+            function updateCarousel() {
+                const offset = -currentSlide * 100; // Each slide is 100% width
+                carousel.style.transform = `translateX(${offset}%)`;
+                
+                // Update dots
+                testimonialDots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.remove('bg-white/30');
+                        dot.classList.add('bg-primary');
+                    } else {
+                        dot.classList.remove('bg-primary');
+                        dot.classList.add('bg-white/30');
+                    }
+                });
+            }
+
+            // Function to go to specific slide
+            function goToSlide(slideIndex) {
+                currentSlide = Math.max(0, Math.min(slideIndex, totalSlides - 1));
+                updateCarousel();
+            }
+
+            // Function to go to next slide
+            function nextSlide() {
+                if (currentSlide >= totalSlides - 1) {
+                    currentSlide = 0; // Loop back to start
+                } else {
+                    currentSlide++;
+                }
+                updateCarousel();
+            }
+
+            // Dot click handlers
+            testimonialDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetInterval(); // Reset auto-advance when user interacts
+                });
+            });
+
+            // Auto-advance functionality
+            function startInterval() {
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startInterval();
+            }
+
+            // Initialize
+            updateCarousel();
+            startInterval();
+        }
+
+        // All reviews data with metadata for filtering/sorting
+        const allReviews = [
+            {
+                id: 1,
+                name: 'John Doe',
+                initials: 'JD',
+                avatar: 'bg-primary',
+                rating: 5,
+                review: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. Excellent service and support!',
+                date: '2 days ago',
+                timestamp: Date.now() - (2 * 24 * 60 * 60 * 1000)
+            },
+            {
+                id: 2,
+                name: 'Sarah Miller',
+                initials: 'SM',
+                avatar: 'bg-accent',
+                rating: 5,
+                review: 'Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Amazing hosting experience!',
+                date: '1 week ago',
+                timestamp: Date.now() - (7 * 24 * 60 * 60 * 1000)
+            },
+            {
+                id: 3,
+                name: 'Mike Wilson',
+                initials: 'MW',
+                avatar: 'bg-green-600',
+                rating: 4,
+                review: 'Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Great value for money!',
+                date: '2 weeks ago',
+                timestamp: Date.now() - (14 * 24 * 60 * 60 * 1000)
+            },
+            {
+                id: 4,
+                name: 'Anna Johnson',
+                initials: 'AJ',
+                avatar: 'bg-purple-600',
+                rating: 5,
+                review: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Excellent customer support team that responds quickly to any issues. Highly recommended!',
+                date: '3 weeks ago',
+                timestamp: Date.now() - (21 * 24 * 60 * 60 * 1000)
+            },
+            {
+                id: 5,
+                name: 'David Lee',
+                initials: 'DL',
+                avatar: 'bg-red-600',
+                rating: 5,
+                review: 'Outstanding performance and reliability. The server never goes down and the support team is incredibly helpful. Perfect for my gaming community!',
+                date: '1 month ago',
+                timestamp: Date.now() - (30 * 24 * 60 * 60 * 1000)
+            },
+            {
+                id: 6,
+                name: 'Emma Roberts',
+                initials: 'ER',
+                avatar: 'bg-indigo-600',
+                rating: 4,
+                review: 'Great pricing and solid performance. Setup was quick and easy. The control panel is user-friendly and makes managing the server simple.',
+                date: '1 month ago',
+                timestamp: Date.now() - (30 * 24 * 60 * 60 * 1000)
+            }
+        ];
+
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<i class="fas fa-star text-yellow-400 text-xs"></i>';
+                } else {
+                    stars += '<i class="far fa-star text-yellow-400 text-xs"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function generateReviewCard(review) {
+            return `
+                <div class="glass-card p-6 flex-1">
+                    <div class="flex items-start gap-4">
+                        <!-- Profile Avatar -->
+                        <div class="w-12 h-12 ${review.avatar} rounded-full flex items-center justify-center text-white font-bold text-sm">
+                            ${review.initials}
+                        </div>
+                        
+                        <!-- Review Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <h4 class="font-bold text-white">${review.name}</h4>
+                            </div>
+                            <div class="flex gap-1 mb-3">
+                                ${generateStars(review.rating)}
+                            </div>
+                            
+                            <p class="text-white/80 leading-relaxed mb-4 text-sm">
+                                ${review.review}
+                            </p>
+                            
+                            <p class="text-white/60 text-xs">${review.date}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterAndSortReviews() {
+            let filteredReviews = [...allReviews];
+            
+            // Filter by rating
+            const selectedRating = ratingFilter.value;
+            if (selectedRating !== 'all') {
+                filteredReviews = filteredReviews.filter(review => review.rating == selectedRating);
+            }
+            
+            // Sort reviews
+            const selectedSort = sortOrder.value;
+            if (selectedSort === 'latest') {
+                filteredReviews.sort((a, b) => b.timestamp - a.timestamp);
+            } else {
+                filteredReviews.sort((a, b) => a.timestamp - b.timestamp);
+            }
+            
+            return filteredReviews;
+        }
+
+        function updateCarousel(filteredReviews = null) {
+            const reviews = filteredReviews || allReviews;
+            const slides = Math.ceil(reviews.length / 3);
+            
+            // Generate carousel HTML
+            let carouselHTML = '';
+            for (let i = 0; i < slides; i++) {
+                const slideReviews = reviews.slice(i * 3, (i + 1) * 3);
+                carouselHTML += `<div class="flex gap-6 min-w-full">`;
+                
+                slideReviews.forEach(review => {
+                    carouselHTML += generateReviewCard(review);
+                });
+                
+                // Fill empty slots if needed
+                const emptySlots = 3 - slideReviews.length;
+                for (let j = 0; j < emptySlots; j++) {
+                    carouselHTML += '<div class="flex-1"></div>';
+                }
+                
+                carouselHTML += '</div>';
+            }
+            
+            carousel.innerHTML = carouselHTML;
+            
+            // Update dots
+            const dotsContainer = document.querySelector('.flex.justify-center.gap-3.mt-8');
+            let dotsHTML = '';
+            for (let i = 0; i < slides; i++) {
+                const activeClass = i === 0 ? 'bg-primary' : 'bg-white/30 hover:bg-white/50';
+                dotsHTML += `<button class="carousel-dot w-3 h-3 rounded-full ${activeClass} transition-all duration-300" data-slide="${i}"></button>`;
+            }
+            dotsContainer.innerHTML = dotsHTML;
+            
+            // Re-attach dot event listeners
+            const newDots = document.querySelectorAll('.carousel-dot');
+            newDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateCarouselPosition();
+                });
+            });
+            
+            // Reset to first slide
+            currentSlide = 0;
+            updateCarouselPosition();
+        }
+
+        function updateCarouselPosition() {
+            // Move carousel
+            const translateX = -currentSlide * 100;
+            carousel.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('bg-white/30');
+                    dot.classList.add('bg-primary');
+                } else {
+                    dot.classList.remove('bg-primary');
+                    dot.classList.add('bg-white/30');
+                }
+            });
+        }
+
+        function startAutoAdvance() {
+            clearInterval(autoAdvanceInterval);
+            autoAdvanceInterval = setInterval(() => {
+                const dots = document.querySelectorAll('.carousel-dot');
+                currentSlide = (currentSlide + 1) % dots.length;
+                updateCarouselPosition();
+            }, 5000);
+        }
+
+        // Filter functionality disabled for now to work with static HTML structure
+        // ratingFilter.addEventListener('change', () => {
+        //     const filteredReviews = filterAndSortReviews();
+        //     updateCarousel(filteredReviews);
+        //     startAutoAdvance();
+        // });
+
+        // sortOrder.addEventListener('change', () => {
+        //     const filteredReviews = filterAndSortReviews();
+        //     updateCarousel(filteredReviews);
+        //     startAutoAdvance();
+        // });
+    });
+</script>
+    
+    <!-- Page-specific JavaScript -->
+    <script>
+        // Pricing Toggle
+        const monthlyBtn = document.getElementById('monthly-btn');
+        const annuallyBtn = document.getElementById('annually-btn');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const annuallyPrices = document.querySelectorAll('.annually-price');
+        const monthlyTerms = document.querySelectorAll('.monthly-term');
+        const annuallyTerms = document.querySelectorAll('.annually-term');
+
+        monthlyBtn.addEventListener('click', () => {
+            monthlyBtn.classList.add('bg-primary', 'text-white');
+            monthlyBtn.classList.remove('text-white/70');
+            annuallyBtn.classList.remove('bg-primary', 'text-white');
+            annuallyBtn.classList.add('text-white/70');
+            
+            monthlyPrices.forEach(price => price.classList.remove('hidden'));
+            annuallyPrices.forEach(price => price.classList.add('hidden'));
+            monthlyTerms.forEach(term => term.classList.remove('hidden'));
+            annuallyTerms.forEach(term => term.classList.add('hidden'));
+        });
+
+        annuallyBtn.addEventListener('click', () => {
+            annuallyBtn.classList.add('bg-primary', 'text-white');
+            annuallyBtn.classList.remove('text-white/70');
+            monthlyBtn.classList.remove('bg-primary', 'text-white');
+            monthlyBtn.classList.add('text-white/70');
+            
+            monthlyPrices.forEach(price => price.classList.add('hidden'));
+            annuallyPrices.forEach(price => price.classList.remove('hidden'));
+            monthlyTerms.forEach(term => term.classList.add('hidden'));
+            annuallyTerms.forEach(term => term.classList.remove('hidden'));
+        });
+
+        // FAQ Toggle
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-content').forEach((content, i) => {
+                if (i !== index) {
+                    content.style.maxHeight = '0px';
+                    const otherIcon = document.getElementById(`faq-icon-${i}`);
+                    if (otherIcon) {
+                        otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+            
+            // Toggle current FAQ
+            if (isOpen) {
+                answer.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+
+
+</body></html>
