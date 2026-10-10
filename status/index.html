@@ -1,15 +1,676 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Server Status - MeteorHost</title><meta name="description" content="De actuele status van MeteorHost-diensten"><link rel="icon" type="image/svg+xml" href="../images/meteor-logo.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#090b10;color:#f5f6fa;font-family:Inter,ui-sans-serif,system-ui,Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}a:hover{color:#fb923c}.header{height:76px;background:#0e1119;border-bottom:1px solid #ffffff14;display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1160px)/2));gap:22px}.brand{display:flex;align-items:center;font-weight:800;font-size:22px;gap:11px}.brand img{width:34px;height:34px;object-fit:contain}.nav{display:flex;gap:22px;flex-wrap:wrap}.nav a{color:#cdd1dc;font-size:14px}.nav a:hover{color:#fb923c}main{max-width:1100px;margin:0 auto;padding:82px 24px 105px}.eyebrow{color:#fb923c;letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:800}.hero{text-align:center;margin:0 auto 52px;max-width:790px}h1{font-size:clamp(38px,6vw,64px);line-height:1.14;letter-spacing:-.045em;margin:17px 0}.hero p{font-size:18px;color:#a9b0c0}.panel,.notice,.service{background:#121722;border:1px solid #ffffff16;border-radius:17px}.panel{padding:30px}.panel h2{margin-top:0}.panel p,.legal p{color:#aab2c1}.notice{padding:22px 25px;margin:20px 0 26px;color:#e5e7eb}.cards{display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}.service{padding:22px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:650}.state{color:#bfc5d2;background:#303642;border-radius:18px;padding:5px 10px;font-size:12px;white-space:nowrap}.state.operational{color:#86efac;background:#14532d55}.state.outage{color:#fca5a5;background:#7f1d1d55}.state.degraded,.state.maintenance{color:#fdba74;background:#7c2d1255}.actions{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;margin:36px 0}button,.primary,.secondary{font:inherit;cursor:pointer;padding:12px 20px;border-radius:11px;font-weight:700;border:1px solid #ffffff1c}.primary{background:#f97316;color:#fff}.primary:hover{background:#ea580c;color:white}.secondary{background:#202735;color:#fff}.muted{color:#98a2b3}.small{font-size:14px}#checked{font-size:13px}.legal{max-width:840px;margin:auto}.legal h2{margin:35px 0 8px;font-size:23px}.legal a{color:#fb923c}.footer{border-top:1px solid #ffffff14;background:#0c0f16;padding:28px 24px;text-align:center;color:#98a2b3;font-size:14px}.footer a{margin:0 9px}@media(max-width:800px){.header{height:auto;padding:18px 22px;display:block}.nav{margin-top:14px;gap:12px}.cards,.cards.two{grid-template-columns:1fr}main{padding-top:55px}.service{flex-wrap:wrap}}</style></head><body><header class="header"><a class="brand" href="../"><img src="../images/meteor-logo.svg" alt="MeteorHost">MeteorHost</a><nav class="nav"><a href="../fivem/">FiveM</a><a href="../minecraft/">Minecraft</a><a href="../discord/">Discord</a><a href="../web/">Web Hosting</a><a href="../vps/">VPS <span style="color:#fb923c">SOON</span></a></nav></header><main><div class="hero"><div class="eyebrow">MeteorHost</div><h1>Server Status</h1><p>De actuele status van MeteorHost-diensten</p></div><div class="notice" id="summary">Status wordt opgehaald…</div><div id="services" class="cards"></div><div class="actions"><button id="refresh" class="primary">↻ Status vernieuwen</button><span id="checked" class="muted"></span></div><p class="muted small">Deze pagina leest de statusgegevens uit <code>status.json</code>. Tot er een monitoringbron is gekoppeld, verschijnen diensten als <strong>Niet beschikbaar</strong> (onbekende status), niet als online.</p><script>
-const services = document.getElementById('services'), summary=document.getElementById('summary'),checked=document.getElementById('checked');
-async function refresh(){
-  summary.textContent='Status wordt opgehaald…';services.innerHTML='';
-  try {const response=await fetch('./status.json?ts='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);
-    const data=await response.json();if(!Array.isArray(data.services))throw Error('Ongeldige statusdata');
-    let names={operational:'Operationeel',degraded:'Verminderde prestaties',outage:'Storing',maintenance:'Onderhoud',unknown:'Status onbekend'};
-    let bad=data.services.filter(s=>s.status==='outage'||s.status==='degraded'), unknown=data.services.filter(s=>!s.status||s.status==='unknown');
-    summary.textContent=bad.length?'Er zijn mogelijk problemen bij '+bad.length+' dienst(en).':unknown.length?'Monitoring nog niet gekoppeld — live status onbekend.':'Alle gerapporteerde diensten werken normaal.';
-    for(const item of data.services){let state=names[item.status]||names.unknown;let card=document.createElement('div');card.className='service';let n=document.createElement('span');n.textContent=item.name||'Dienst';let badge=document.createElement('span');badge.className='state '+(item.status||'unknown');badge.textContent=state;card.append(n,badge);services.append(card)}
-    checked.textContent='Laatste controle: '+new Date().toLocaleTimeString('nl-BE');
-  }catch(e){summary.textContent='Status kon niet worden opgehaald.';checked.textContent='Probeer opnieuw of controleer de configuratie.'}
-}
-document.getElementById('refresh').addEventListener('click',refresh);refresh();
-</script></main><footer class="footer"><a href="../">Home</a><a href="../status/">Server Status</a><a href="../about/">About Us</a><a href="../terms/">Terms of Service</a><a href="../privacy/">Privacy Policy</a></footer></body></html>
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status - MeteorHost</title>
+    <meta name="description" content="MeteorHost Server Status">
+    <meta name="keywords" content="FiveM hosting, FiveM server hosting, java edition, bedrock edition, mod support">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../images/meteor-logo.svg" type="image/x-icon">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'text': 'rgb(255, 255, 255)',
+                        'background': 'rgb(26, 28, 30)',
+                        'primary': 'rgb(16, 68, 242)',
+                        'secondary': 'rgb(31, 35, 38)',
+                        'accent': 'rgb(59, 130, 246)',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Include Global Styles -->
+    <style>    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        margin-bottom: 2rem;
+        font-family: 'Inter', sans-serif;
+    }        --text: rgb(255, 255, 255);
+        --background: rgb(26, 28, 30);
+        --section-alt: rgb(39, 43, 46);
+        --primary: rgb(16, 68, 242);
+        --secondary: rgb(31, 35, 38);
+        --accent: rgb(59, 130, 246);
+        --success: rgb(34, 197, 94);
+        --warning: rgb(245, 158, 11);
+        --error: rgb(239, 68, 68);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    /* Remove focus outlines globally */
+    button:focus,
+    input:focus,
+    textarea:focus,
+    select:focus,
+    a:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Glassmorphism Effects */
+    .glass {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .glass-dark {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .glass-card {
+        background: rgba(31, 35, 38, 1);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    /* Navigation Styles */
+    .navbar-transparent {
+        background: transparent;
+        border-bottom: 1px solid transparent;
+    }
+
+    .navbar-scrolled {
+        background: rgba(31, 35, 38, 1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hero Section Styles */
+    .hero-section {
+        min-height: 100vh;
+        background: var(--background);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-image-container {
+        height: 70vh;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+
+    /* Button Styles */
+    .btn-primary {
+        background: rgb(16, 68, 242);
+        color: rgb(255, 255, 255);
+        padding: 8px 24px;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        background: rgb(59, 130, 246);
+    }
+
+    .btn-secondary {
+        background: rgba(31, 35, 38, 1);
+        color: rgb(255, 255, 255);
+        padding: 8px 24px;
+        border-radius: 8px;
+        font-weight: 400;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+        color: var(--text);
+        text-decoration: none;
+    }
+
+    /* Game Card Styles */
+    .game-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .game-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .game-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .game-card:hover .game-image {
+        /* Removed scaling effect */
+    }
+
+    .game-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(16, 68, 242, 0.9);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .game-badge.free {
+        background: rgba(34, 197, 94, 0.9);
+    }
+
+    .game-badge.discount {
+        background: rgba(245, 158, 11, 0.9);
+    }
+
+    /* Search Bar Styles */
+    .search-container {
+        position: relative;
+        max-width: 500px;
+        min-width: 400px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 14px 50px 14px 20px;
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(40, 45, 48, 1);
+        outline: none;
+    }
+
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: white;
+    }
+
+    /* Pricing Cards */
+    .pricing-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 2.5rem;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .pricing-card.popular {
+        border-color: var(--primary);
+        background: rgba(31, 35, 38, 1);
+    }
+
+    .pricing-card.popular::before {
+        content: "Most Popular";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        padding: 6px 24px;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    /* Testimonial Cards */
+    .testimonial-card {
+        background: rgba(31, 35, 38, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+        background: rgba(40, 45, 48, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Section Backgrounds */
+    .section-gradient {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .section-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            padding: 10px 24px;
+            font-size: 0.9rem;
+        }
+        
+        .game-card {
+            border-radius: 16px;
+        }
+        
+        .feature-card,
+        .pricing-card,
+        .testimonial-card {
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        
+        .search-input {
+            padding: 16px 50px 16px 20px;
+            font-size: 1rem;
+        }
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Loading States */
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Utility Classes */
+    .text-gradient {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .bg-gradient {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+
+    .border-gradient {
+        border: 1px solid;
+        border-image: linear-gradient(135deg, var(--primary), var(--accent)) 1;
+    }
+</style>
+</head>
+<body class="bg-background text-text font-inter">
+    <!-- Navigation -->
+    
+<nav class="fixed w-full z-50 transition-all duration-300 navbar-transparent" id="navbar">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="../" class="flex items-center">
+                    <img src="../images/meteor-logo.svg" alt="MeteorHost Logo" class="w-8 h-8 mr-3">
+                    <span class="text-2xl font-bold text-white">MeteorHost</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8">
+				<!-- Hosting Dropdown -->
+                <div class="relative group inline-block">
+    <button class="flex items-center text-white/80 hover:text-gray-400 transition-colors py-2 focus:outline-none">
+        Hosting
+        <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+
+    <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="bg-[#d1d5db] rounded-2xl shadow-xl mt-2 overflow-hidden">
+            <div class="p-4 space-y-4">
+				<a href="./" class="block text-gray-900 hover:text-blue-600 font-medium">FiveM Hosting</a>
+				<a href="../minecraft/" class="block text-gray-900 hover:text-blue-600 font-medium">Minecraft Hosting</a>
+				<a href="../discord/" class="block text-gray-900 hover:text-blue-600 font-medium">Discord Bot Hosting</a>
+				<a href="../web/" class="block text-gray-900 hover:text-blue-600 font-medium">Web Hosting</a>
+<a href="../vps/" class="block text-gray-900 hover:text-blue-600 font-medium">VPS Hosting <span style="color:#fb923c;font-size:10px;font-weight:800;letter-spacing:.08em;margin-left:5px">SOON</span></a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+				<!-- End of Hosting Dropdown -->
+                <a href="contact.php" class="text-white/80 hover:text-gray-400 transition-colors">Contact</a>
+				
+				<!-- Begin of Discord button -->
+				<a href="https://discord.gg/xM7ApvF7tb" class="inline-flex items-center gap-2 bg-white text-[#1a1c1e] px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+  <span>Discord</span>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.2259 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"></path>
+  </svg>
+</a>
+				<!-- End of Discord button -->
+                <a href="#" class="btn-primary">Client Area</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-white/80 hover:text-gray-400 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-dark rounded-lg mt-4 p-6">
+            <div class="flex flex-col space-y-4">
+                				<!-- Hosting Dropdown -->
+                <div class="relative group inline-block">
+    <button class="flex items-center text-white/80 hover:text-gray-400 transition-colors py-2 focus:outline-none">
+        Hosting
+        <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+
+    <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="bg-[#d1d5db] rounded-2xl shadow-xl mt-2 overflow-hidden">
+            <div class="p-4 space-y-4">
+				<a href="./" class="block text-gray-900 hover:text-blue-600 font-medium">FiveM Hosting</a>
+				<a href="../minecraft/" class="block text-gray-900 hover:text-blue-600 font-medium">Minecraft Hosting</a>
+				<a href="../discord/" class="block text-gray-900 hover:text-blue-600 font-medium">Discord Bot Hosting</a>
+				<a href="../web/" class="block text-gray-900 hover:text-blue-600 font-medium">Web Hosting</a>
+<a href="../vps/" class="block text-gray-900 hover:text-blue-600 font-medium">VPS Hosting <span style="color:#fb923c;font-size:10px;font-weight:800;letter-spacing:.08em;margin-left:5px">SOON</span></a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+                <a href="blog.php" class="text-white/80 hover:text-gray-400 transition-colors py-2">Blog</a>
+                <a href="contact.php" class="text-white/80 hover:text-gray-400 transition-colors py-2">Contact</a>
+                <hr class="border-white/20 my-4">
+                <a href="#" class="btn-primary justify-center">Client Area</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <section class="py-20 px-4 sm:px-6" style="padding-top:8rem"><div class="container mx-auto text-center max-w-4xl"><h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">Server Status</h1><p class="text-lg sm:text-xl text-white/70">Monitor the status of MeteorHost infrastructure.</p></div></section><section class="px-4 sm:px-6 pb-24"><div class="container mx-auto"><div class="max-w-5xl mx-auto"><div class="glass-card p-6 sm:p-8 mb-8"><div class="flex flex-wrap items-center justify-between gap-4 mb-3"><h2 class="text-2xl font-bold">System Overview</h2><button id="refreshStatus" class="btn-secondary text-sm">Refresh status <i class="fas fa-sync-alt ml-2"></i></button></div><p id="overall" class="text-white/70">Status wordt geladen...</p><p id="checkedAt" class="text-white/50 text-sm mt-2"></p></div><div class="glass-card overflow-hidden" id="statusList"><div class="p-6 text-white/60">Status wordt geladen...</div></div><p class="text-white/50 text-sm mt-5">Live monitoring is nog niet gekoppeld. Statussen worden niet als online gemarkeerd zonder geverifieerde gegevens.</p></div>
+<script>
+const labels={operational:'Operational',degraded:'Degraded Performance',outage:'Major Outage',maintenance:'Maintenance',unknown:'Unknown'};
+const colors={operational:'text-green-400 bg-green-400',degraded:'text-yellow-400 bg-yellow-400',outage:'text-red-400 bg-red-400',maintenance:'text-orange-400 bg-orange-400',unknown:'text-gray-400 bg-gray-400'};
+async function loadStatus(){const list=document.getElementById('statusList');const overall=document.getElementById('overall');const checked=document.getElementById('checkedAt');overall.textContent='Status wordt geladen...';
+try{const r=await fetch('./status.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Unable to load');const data=await r.json();if(!Array.isArray(data.services))throw Error('Invalid data');list.replaceChildren();
+let unknown=0,issues=0;for(const entry of data.services){const state=Object.hasOwn(labels,entry.status)?entry.status:'unknown';if(state==='unknown')unknown++;else if(state!=='operational')issues++;const item=document.createElement('div');item.className='p-6 border-b border-white/10 last:border-b-0';const row=document.createElement('div');row.className='flex flex-wrap gap-3 justify-between items-center mb-4';const name=document.createElement('h3');name.className='text-lg font-semibold';name.textContent=entry.name;const badge=document.createElement('span');badge.className='text-sm font-medium '+colors[state].split(' ')[0];badge.textContent=labels[state];row.append(name,badge);const track=document.createElement('div');track.className='h-2 rounded-full bg-white/10 overflow-hidden';const bar=document.createElement('div');bar.className='h-full rounded-full '+colors[state].split(' ')[1];bar.style.width=state==='unknown'?'0%':'100%';track.append(bar);item.append(row,track);list.append(item)}overall.textContent=issues?'One or more services require attention':unknown?'Live service status is currently unavailable':'All reported systems operational';checked.textContent='Last refreshed: '+new Date().toLocaleTimeString('en-GB');}
+catch(e){overall.textContent='Service data temporarily unavailable';list.textContent='Unable to load service statuses.';checked.textContent='';}}
+document.getElementById('refreshStatus').addEventListener('click',loadStatus);loadStatus();
+</script></div></section><!-- Footer -->
+    
+<footer class="bg-secondary/50 border-t border-white/10">
+    <div class="container mx-auto px-6 py-12">
+        <!-- Main Footer Content -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+            <!-- Brand Section -->
+            <div class="lg:col-span-2">
+                <div class="flex items-center mb-4">
+                    <img src="../images/meteor-logo.svg" alt="MeteorHost Logo" class="w-8 h-8 mr-3">
+                    <span class="text-2xl font-bold text-white">MeteorHost</span>
+                </div>
+                <p class="text-white/70 mb-6 max-w-md">MeteorHost offers high-quality game server hosting with unparalleled performance, reliability, and support.</p>
+                
+                <!-- Social Links -->
+                <div class="flex space-x-4">
+                    <a href="https://discord.gg/xM7ApvF7tb" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/MeteorHost" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="https://twitch.tv/MeteorHost" class="text-white/60 hover:text-primary transition-colors">
+                        <i class="fab fa-twitch text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Footer Links -->
+                        <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Hosting</h4>
+                <ul class="space-y-3">
+                                        <li>
+                                                <a href="../fivem/" class="text-white/70 hover:text-primary transition-colors">FiveM Hosting</a>
+                    </li>
+                                        <li>
+                                                <a href="../minecraft/" class="text-white/70 hover:text-primary transition-colors">Minecraft Hosting</a>
+                    </li>
+                                        <li>
+                                                <a href="../discord/" class="text-white/70 hover:text-primary transition-colors">Discord Bot Hosting</a>
+                    </li>
+                                        <li>
+                                                <a href="../web/" class="text-white/70 hover:text-primary transition-colors">Web Hosting</a>
+<a href="../vps/" class="block text-gray-900 hover:text-blue-600 font-medium">VPS Hosting <span style="color:#fb923c;font-size:10px;font-weight:800;letter-spacing:.08em;margin-left:5px">SOON</span></a>
+                    </li>
+                                    </ul>
+            </div>
+                        <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Support</h4>
+                <ul class="space-y-3">
+                                        <li>
+                                                <a href="https://discord.gg/xM7ApvF7tb" class="text-white/70 hover:text-primary transition-colors">Help Center</a>
+                    </li>
+                                        <li>
+                                                <a href="contact.php" class="text-white/70 hover:text-primary transition-colors">Contact Support</a>
+                    </li>
+                                        <li>
+                                                <a href="../status/" class="text-white/70 hover:text-primary transition-colors">Server Status</a>
+                    </li>
+                                        <li>
+                                                <a href="../" class="text-white/70 hover:text-primary transition-colors">Knowledge Base</a>
+                    </li>
+                                    </ul>
+            </div>
+                        <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Company</h4>
+                <ul class="space-y-3">
+                                        <li>
+                                                <a href="../about/" class="text-white/70 hover:text-primary transition-colors">About Us</a>
+                    </li>
+                                        <li>
+                                                <a href="#" class="text-white/70 hover:text-primary transition-colors">Data Centers</a>
+                    </li>
+                                        <li>
+                                                <a href="../terms/" class="text-white/70 hover:text-primary transition-colors">Terms of Service</a>
+                    </li>
+                                        <li>
+                                                <a href="../privacy/" class="text-white/70 hover:text-primary transition-colors">Privacy Policy</a>
+                    </li>
+                                    </ul>
+            </div>
+                    </div>
+        
+        <!-- Bottom Footer -->
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-white/60 text-sm mb-4 md:mb-0">
+                © 2026 MeteorHost. All rights reserved.
+            </div>
+            
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="../privacy/" class="text-white/60 hover:text-primary transition-colors">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </body></html>
