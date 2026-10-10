@@ -686,4 +686,22 @@
     </div>
 </footer>
 
-    </body></html>
+    
+<script>
+// Same sticky navbar and mobile navigation behavior as the MeteorHost homepage.
+document.addEventListener('DOMContentLoaded', function () {
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
+  const navbar = document.getElementById('navbar');
+  function updateNavbar() {
+    if (!navbar) return;
+    const scrolled = window.scrollY > 50;
+    navbar.classList.toggle('navbar-scrolled', scrolled);
+    navbar.classList.toggle('navbar-transparent', !scrolled);
+  }
+  window.addEventListener('scroll', updateNavbar, { passive: true });
+  updateNavbar();
+});
+</script>
+</body></html>
