@@ -2,23 +2,23 @@
   "updated_at": null,
   "services": [
     {
-      "name": "FiveM Hosting",
+      "name": "Panel",
       "status": "unknown"
     },
     {
-      "name": "Minecraft Hosting",
+      "name": "Node 1",
       "status": "unknown"
     },
     {
-      "name": "Discord Bot Hosting",
+      "name": "Node 2",
       "status": "unknown"
     },
     {
-      "name": "Web Hosting",
+      "name": "Website",
       "status": "unknown"
     },
     {
-      "name": "VPS Hosting (Coming Soon)",
+      "name": "Billing",
       "status": "unknown"
     }
   ]
