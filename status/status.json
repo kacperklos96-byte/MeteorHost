@@ -1,0 +1,25 @@
+{
+  "updated_at": null,
+  "services": [
+    {
+      "name": "FiveM Hosting",
+      "status": "unknown"
+    },
+    {
+      "name": "Minecraft Hosting",
+      "status": "unknown"
+    },
+    {
+      "name": "Discord Bot Hosting",
+      "status": "unknown"
+    },
+    {
+      "name": "Web Hosting",
+      "status": "unknown"
+    },
+    {
+      "name": "VPS Hosting (Coming Soon)",
+      "status": "unknown"
+    }
+  ]
+}
