@@ -48,65 +48,7 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;background-ima
 
 </style>
 <style id="minecraft-interface-v2">
-/* Minecraft inventory bevels, real pixel-grid surfaces, thumb-friendly responsive shell */
-:root{--stone:#c6c6c6;--stone-dark:#373737;--pixel-shade:#101013}
-html{-webkit-text-size-adjust:100%}
-body{overflow-x:hidden;background:#0f1013}
-button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #d1c4ff!important;outline-offset:3px}
-/* Classic raised Java Edition menu buttons. Four directional edge highlights are intentional. */
-.btn,.quick,.tab,.mapctrl button,.terminalinput button,.toggle,.navitem,.mobile-tab,.mobile-menu-btn{
-  position:relative;isolation:isolate;border-radius:0!important;
-  border:3px solid;border-color:#dadada #24242b #24242b #d2d2d5;
-  background-color:#626268;
-  background-image:linear-gradient(180deg,#85858b 0,#66666d 50%,#53535a 100%);
-  box-shadow:inset 2px 2px 0 #a4a4aa,inset -2px -2px 0 #323239,0 4px 0 #09090c;
-  color:#f5f5f7;letter-spacing:.2px;text-shadow:2px 2px 0 #26262b;
-  transition:filter .09s,background-color .09s,transform .09s;
-}
-.btn:before,.quick:before,.tab:before,.mapctrl button:before,.terminalinput button:before,.toggle:before,.navitem:before,.mobile-tab:before,.mobile-menu-btn:before{
-  content:"";position:absolute;inset:4px;z-index:-1;pointer-events:none;
-  border-top:1px solid #dedee04f;border-left:1px solid #dedee04f;
-  border-right:1px solid #22222988;border-bottom:1px solid #22222988
-}
-.btn:hover:not(:disabled),.quick:hover:not(:disabled),.tab:hover:not(:disabled),.mapctrl button:hover:not(:disabled),.terminalinput button:hover:not(:disabled),.toggle:hover:not(:disabled),.navitem:hover:not(:disabled),.mobile-tab:hover,.mobile-menu-btn:hover{
-  background-color:#848493;background-image:linear-gradient(180deg,#9797aa,#76768a 100%);
-  border-color:#ebdcff #403d56 #403d56 #ebdcff;
-  color:white;outline:2px solid #b0a0d1;outline-offset:0;
-  box-shadow:inset 2px 2px 0 #b0adc0,inset -2px -2px 0 #4d495d,0 4px 0 #08080b;
-  transform:none;filter:none
-}
-.btn:active:not(:disabled),.quick:active:not(:disabled),.tab:active:not(:disabled),.mapctrl button:active:not(:disabled),.terminalinput button:active:not(:disabled),.toggle:active:not(:disabled),.navitem:active:not(:disabled),.mobile-tab:active,.mobile-menu-btn:active{
-  background-color:#44444b;background-image:linear-gradient(180deg,#3e3e47,#5b5b65);
-  border-color:#272730 #66666f #66666f #26262c;
-  box-shadow:inset 2px 2px #23232a,inset -2px -2px #74747d,0 1px 0 #070709;
-  transform:translateY(3px);outline:0
-}
-.btn{min-height:46px;padding:9px 16px;font:700 17px/1.1 var(--pixel)}
-.btn.small{min-height:36px;font-size:15px}.btn.slim{min-height:40px;font-size:15px}
-.btn.ghost{background-color:#505056;background-image:linear-gradient(#69696f,#48484e);border-color:#b0b0b8 #222229 #222229 #aaaab2;box-shadow:inset 2px 2px #86868c,inset -2px -2px #323238,0 4px #09090c}
-.btn.danger{background-color:#82504e;background-image:linear-gradient(#aa706e,#7a4545);border-color:#e6b4b2 #452b2b #452b2b #d7a2a0;box-shadow:inset 2px 2px #be8280,inset -2px -2px #522b2c,0 4px #09090c}
-.btn.gold{background-color:#88744b;background-image:linear-gradient(#a99869,#6d5a3e);border-color:#e5d5a8 #4b3b28 #4b3b28 #caba8b;box-shadow:inset 2px 2px #beaa7e,inset -2px -2px #594731,0 4px #09090c}
-.btn:disabled,.quick:disabled,.toggle:disabled{opacity:.48;filter:grayscale(1);box-shadow:inset 2px 2px #777,inset -2px -2px #393939}
-.navitem{margin:5px 0;min-height:50px;text-shadow:1px 2px #151518;font-size:17px;background-image:linear-gradient(#38383e,#29292e);border-color:#75757c #101014 #101014 #6c6c74;box-shadow:inset 2px 2px #55555d,inset -2px -2px #1a1a20,0 3px #0a0a0c}
-.navitem svg{width:23px;height:23px;flex:none;padding:3px;background:#141419;border:2px solid #5d5d64;box-shadow:inset 1px 1px #050507,1px 1px #0a0a0c;shape-rendering:crispEdges}
-.navitem.active{color:#fff;background-image:linear-gradient(#898995,#656570);border-color:#dedee8 #33333a #33333a #c4c4d0;box-shadow:inset 2px 2px #b3b3c0,inset -2px -2px #47474e,0 3px #09090b}
-.navitem.active:before{content:"";border-top:1px solid #ffffff66;border-left:1px solid #ffffff66;border-right:1px solid #22222988;border-bottom:1px solid #22222988;margin:0}
-.navitem.active svg{border-color:#f1d79a;background:#3f3930}
-.quick{min-height:57px;font-size:17px}.quick span{font-size:23px}
-.tab{min-height:39px;font-size:16px}.tab.active{background-image:linear-gradient(#9b9baa,#6f6f83);color:#fff}
-.toggle.on{background-image:linear-gradient(#81868b,#5f6268)}
-.mapctrl button{min-width:42px;height:42px}
-/* Inventory windows and slots: highlight top-left stone border, dark carved interior. */
-.panel,.stat{border:4px solid #77777e;border-top-color:#b2b2b9;border-left-color:#9b9ba4;border-right-color:#1b1b1f;border-bottom-color:#17171b;background-color:#29292f;background-image:repeating-linear-gradient(90deg,#ffffff03 0px,#ffffff03 2px,transparent 2px,transparent 16px),repeating-linear-gradient(0deg,#00000012 0px,#00000012 2px,transparent 2px,transparent 16px),linear-gradient(#303036,#27272e);box-shadow:inset 2px 2px #47474e,inset -2px -2px #141418,5px 6px #09090c}
-.panelhead{background:linear-gradient(#42424b,#303037);border-bottom:4px solid #1a1a1e;box-shadow:inset 0 -2px #5f5f68}
-.stat .stat-icon{border:3px solid #17171b;border-top-color:#111116;border-left-color:#111116;border-right-color:#696972;border-bottom-color:#666670;background:#212128}
-.terminal{border:4px solid #65656c;border-top-color:#1b1b21;border-left-color:#1b1b21;border-bottom-color:#878790;border-right-color:#83838b;background:#0b0c0f}
-.terminalhead{background:#1f2025}
-.terminalinput{background:#16161b}
-.sidebar{background:#1b1b20;background-image:repeating-linear-gradient(90deg,transparent 0 14px,#ffffff03 14px 16px),linear-gradient(#232329,#17171b)}
-.side-top{background:#24242a}
-.search,.field input,.field select,.field textarea{font-size:16px}
+/* Keep the phone-native app shell without the oversized menu button skin. */
 /* Real mobile app shell, not a horizontally scrolling desktop sidebar. */
 .mobile-head,.mobile-bottom,.navshade{display:none}
 @media(max-width:750px){
@@ -191,6 +133,74 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
   .tabs{max-width:100%;overflow-x:auto;display:flex;gap:4px;padding:4px 0}
   .tab{flex:none;min-height:39px}
 }
+</style>
+
+<style id="topsyfox-stone-controls-v4">
+/* Smaller inventory-style controls: Minecraft-inspired, not title-screen buttons. */
+:root{--control-face:#494b54;--control-hover:#60626c;--control-press:#373941;--control-edge:#858792;--control-shadow:#101115}
+.btn,.quick,.tab,.toggle,.terminalinput button,.mapctrl button,.mobile-menu-btn{
+ appearance:none;border:2px solid;border-color:#858792 #202127 #202127 #72747f;
+ background:#494b54;background-image:none;color:#f0f0f3;border-radius:0;
+ box-shadow:inset 1px 1px #656773,inset -1px -1px #303139,2px 2px #08090d;
+ text-shadow:0 1px #191a20;outline:0;transform:none;filter:none;
+ font:700 14px/1.1 var(--pixel);transition:background-color .12s,border-color .12s,box-shadow .12s;position:relative;
+}
+.btn{min-height:38px;padding:8px 12px;gap:7px}.btn.small{min-height:29px;padding:5px 9px;font-size:12px}.btn.slim{min-height:33px;padding:6px 10px;font-size:13px}
+.btn.ghost{background:#34363e;border-color:#747681 #191a20 #191a20 #646671;color:#e9e9ed;box-shadow:inset 1px 1px #4c4e58,inset -1px -1px #25262e,2px 2px #08090c}
+.btn.gold{background:#504b42;border-color:#a39a84 #231f1a #231f1a #938b7b;color:#f6e8ca;box-shadow:inset 1px 1px #726a5a,inset -1px -1px #343029,2px 2px #08090d}
+.btn.danger{background:#514244;border-color:#a38387 #241b1e #241b1e #937276;color:#fbe5e5;box-shadow:inset 1px 1px #71595d,inset -1px -1px #35282b,2px 2px #08090d}
+.btn:hover,.quick:hover,.tab:hover,.toggle:hover,.terminalinput button:hover,.mapctrl button:hover,.mobile-menu-btn:hover,.btn.ghost:hover,.btn.gold:hover,.btn.danger:hover{
+ background:#646671;color:#fff;border-color:#b6b8c2 #303139 #303139 #a8aab5;
+ box-shadow:inset 1px 1px #888a95,inset -1px -1px #40414a,2px 2px #08090d;filter:none;outline:0;transform:none
+}
+.btn:active,.quick:active,.tab:active,.toggle:active,.terminalinput button:active,.mapctrl button:active,.mobile-menu-btn:active{
+ background:#363840;border-color:#202127 #646670 #646670 #25262d;
+ box-shadow:inset 2px 2px #24252b,inset -1px -1px #585a64;transform:translate(1px,1px);outline:0
+}
+.btn:focus-visible,.quick:focus-visible,.tab:focus-visible,.toggle:focus-visible,.navitem:focus-visible,.mobile-tab:focus-visible,.mobile-menu-btn:focus-visible{outline:2px solid #d5d0bb;outline-offset:3px}
+.btn:disabled,.quick:disabled,.toggle:disabled{opacity:.5;filter:saturate(.3);cursor:not-allowed}
+/* Dark stone-list sidebar, with subtle selected-slot highlight. */
+.navitem{min-height:41px;margin:3px 0;padding:8px 12px;gap:11px;
+ border:1px solid #3d3e47;border-left:2px solid #494b54;background:#25262c;
+ box-shadow:inset 1px 1px #303139;color:#c0c1cb;text-shadow:none;font:700 14px var(--pixel)}
+.navitem:hover{background:#353741;border-color:#666872;border-left-color:#878995;color:#fff;box-shadow:inset 1px 1px #484a54}
+.navitem.active{background:#40414a;border:1px solid #737681;border-left:3px solid #bdbfca;color:#fff;box-shadow:inset 0 1px #646670}
+.navitem.active:before{display:none}
+.navitem svg{width:18px;height:18px;padding:0;background:none;border:0;box-shadow:none;filter:none;stroke-width:2.1}
+.navitem.active svg{border:0;background:none}
+.quick{min-height:47px;padding:10px 11px;font-size:14px}.quick span{font-size:17px}
+.tab{min-height:33px;padding:6px 12px;font-size:13px}
+.tab.active{background:#555761;border-color:#a8aab6 #303139 #303139 #9a9ca8;color:#fff}
+.toggle.on{background:#54565e;border-color:#a1a3ae #26272e #26272e #90929d}.mapctrl button{height:34px;min-width:34px}
+/* Quieter deepslate panels, not exaggerated beveled chrome. */
+.panel,.stat{border:2px solid #676871;border-top-color:#90919b;border-left-color:#868791;
+ border-right-color:#1d1e23;border-bottom-color:#18191e;background-color:#292a30;
+ background-image:linear-gradient(145deg,#303139,#25262c);
+ box-shadow:inset 1px 1px #41424b,inset -1px -1px #191a20,3px 4px #090a0d}
+.panelhead{background:#32333a;border-bottom:2px solid #1a1b20;box-shadow:inset 0 -1px #4b4c55}
+.terminal{border:2px solid #555660;box-shadow:inset 1px 1px #07080b,inset -1px -1px #25262d}
+.stat{min-height:116px}.stat .stat-icon{border:2px solid #41424a;background:#1c1d22}
+@media(max-width:750px){
+ .mobile-head{height:59px;background:#222329;border-bottom:2px solid #555660;box-shadow:0 2px #111217}
+ .mobile-menu-btn{width:40px;height:40px;min-width:40px;font:700 20px var(--pixel)}
+ .mobile-bottom{border-top:2px solid #565862;background:#1c1d22;box-shadow:0 -2px #0b0c0f;gap:4px;padding:7px 7px calc(7px + env(safe-area-inset-bottom))}
+ .mobile-tab{background:#2c2d34;background-image:none;color:#aaaab4;min-height:54px;
+  border:1px solid #585a65;box-shadow:inset 1px 1px #3d3f49;text-shadow:none;
+  font:700 10px/1.2 var(--pixel);padding:6px 2px;gap:2px}
+ .mobile-tab:before{display:none}
+ .mobile-tab.active{color:#fff;background:#474952;background-image:none;border-color:#9fa1ad;
+  box-shadow:inset 0 -2px #beb8a9,inset 1px 1px #62646e}
+ .mobile-tab .tab-icon{font-size:20px;line-height:20px;height:21px}
+ .mobile-tab.active .tab-icon{color:#e4d6b7}
+ #allPlayers tr,#moderationRows tr,#flagRows tr{
+  border:2px solid #5e606b;border-top-color:#838591;border-left-color:#7b7d88;
+  border-bottom-color:#24252b;border-right-color:#27282f;background:#303139;
+  box-shadow:inset 1px 1px #4b4d56,2px 3px #0b0c10}
+ .main{padding-bottom:calc(106px + env(safe-area-inset-bottom))}
+ .navitem{min-height:46px;font-size:15px}.quick{min-height:47px;font-size:13px}
+ .btn{min-height:41px;font-size:14px}.terminalinput button{min-height:41px}
+}
+@media(prefers-reduced-motion:reduce){.btn,.quick,.tab,.toggle,.navitem,.mobile-tab{transition:none}}
 </style>
 </head>
 <body>
