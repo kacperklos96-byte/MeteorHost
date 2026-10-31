@@ -47,10 +47,162 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;background-ima
 @media(max-width:1200px){.main{padding:0 25px 50px}}@media(max-width:850px){.sidebar{border-right:0;border-bottom:4px solid #0b0b0d;box-shadow:0 2px #656671;min-height:0}.side-top{padding:13px 16px}.navigation{gap:7px;padding:10px}.navitem{width:auto;white-space:nowrap;min-height:42px;padding:10px 12px}.brand h1{font-size:22px}.main{padding:0 17px 35px}.topbar{height:60px}.pagehead h2{font-size:36px}}@media(max-width:480px){.stats{gap:10px}.stat{min-height:107px;padding:12px}.statlabel{font-size:12px}.statnum{font-size:29px}.statfoot{font-size:11px}.panelhead h3{font-size:15px}.panelbody{padding:12px}.pagehead h2{font-size:30px}.banner{flex-wrap:wrap}.banner button{margin-left:0}.quick{font-size:13px}.breadcrumb{font-size:12px}.clock{font-size:11px}}
 
 </style>
+<style id="minecraft-interface-v2">
+/* Minecraft inventory bevels, real pixel-grid surfaces, thumb-friendly responsive shell */
+:root{--stone:#c6c6c6;--stone-dark:#373737;--pixel-shade:#101013}
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;background:#0f1013}
+button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #d1c4ff!important;outline-offset:3px}
+/* Classic raised Java Edition menu buttons. Four directional edge highlights are intentional. */
+.btn,.quick,.tab,.mapctrl button,.terminalinput button,.toggle,.navitem,.mobile-tab,.mobile-menu-btn{
+  position:relative;isolation:isolate;border-radius:0!important;
+  border:3px solid;border-color:#dadada #24242b #24242b #d2d2d5;
+  background-color:#626268;
+  background-image:linear-gradient(180deg,#85858b 0,#66666d 50%,#53535a 100%);
+  box-shadow:inset 2px 2px 0 #a4a4aa,inset -2px -2px 0 #323239,0 4px 0 #09090c;
+  color:#f5f5f7;letter-spacing:.2px;text-shadow:2px 2px 0 #26262b;
+  transition:filter .09s,background-color .09s,transform .09s;
+}
+.btn:before,.quick:before,.tab:before,.mapctrl button:before,.terminalinput button:before,.toggle:before,.navitem:before,.mobile-tab:before,.mobile-menu-btn:before{
+  content:"";position:absolute;inset:4px;z-index:-1;pointer-events:none;
+  border-top:1px solid #dedee04f;border-left:1px solid #dedee04f;
+  border-right:1px solid #22222988;border-bottom:1px solid #22222988
+}
+.btn:hover:not(:disabled),.quick:hover:not(:disabled),.tab:hover:not(:disabled),.mapctrl button:hover:not(:disabled),.terminalinput button:hover:not(:disabled),.toggle:hover:not(:disabled),.navitem:hover:not(:disabled),.mobile-tab:hover,.mobile-menu-btn:hover{
+  background-color:#848493;background-image:linear-gradient(180deg,#9797aa,#76768a 100%);
+  border-color:#ebdcff #403d56 #403d56 #ebdcff;
+  color:white;outline:2px solid #b0a0d1;outline-offset:0;
+  box-shadow:inset 2px 2px 0 #b0adc0,inset -2px -2px 0 #4d495d,0 4px 0 #08080b;
+  transform:none;filter:none
+}
+.btn:active:not(:disabled),.quick:active:not(:disabled),.tab:active:not(:disabled),.mapctrl button:active:not(:disabled),.terminalinput button:active:not(:disabled),.toggle:active:not(:disabled),.navitem:active:not(:disabled),.mobile-tab:active,.mobile-menu-btn:active{
+  background-color:#44444b;background-image:linear-gradient(180deg,#3e3e47,#5b5b65);
+  border-color:#272730 #66666f #66666f #26262c;
+  box-shadow:inset 2px 2px #23232a,inset -2px -2px #74747d,0 1px 0 #070709;
+  transform:translateY(3px);outline:0
+}
+.btn{min-height:46px;padding:9px 16px;font:700 17px/1.1 var(--pixel)}
+.btn.small{min-height:36px;font-size:15px}.btn.slim{min-height:40px;font-size:15px}
+.btn.ghost{background-color:#505056;background-image:linear-gradient(#69696f,#48484e);border-color:#b0b0b8 #222229 #222229 #aaaab2;box-shadow:inset 2px 2px #86868c,inset -2px -2px #323238,0 4px #09090c}
+.btn.danger{background-color:#82504e;background-image:linear-gradient(#aa706e,#7a4545);border-color:#e6b4b2 #452b2b #452b2b #d7a2a0;box-shadow:inset 2px 2px #be8280,inset -2px -2px #522b2c,0 4px #09090c}
+.btn.gold{background-color:#88744b;background-image:linear-gradient(#a99869,#6d5a3e);border-color:#e5d5a8 #4b3b28 #4b3b28 #caba8b;box-shadow:inset 2px 2px #beaa7e,inset -2px -2px #594731,0 4px #09090c}
+.btn:disabled,.quick:disabled,.toggle:disabled{opacity:.48;filter:grayscale(1);box-shadow:inset 2px 2px #777,inset -2px -2px #393939}
+.navitem{margin:5px 0;min-height:50px;text-shadow:1px 2px #151518;font-size:17px;background-image:linear-gradient(#38383e,#29292e);border-color:#75757c #101014 #101014 #6c6c74;box-shadow:inset 2px 2px #55555d,inset -2px -2px #1a1a20,0 3px #0a0a0c}
+.navitem svg{width:23px;height:23px;flex:none;padding:3px;background:#141419;border:2px solid #5d5d64;box-shadow:inset 1px 1px #050507,1px 1px #0a0a0c;shape-rendering:crispEdges}
+.navitem.active{color:#fff;background-image:linear-gradient(#898995,#656570);border-color:#dedee8 #33333a #33333a #c4c4d0;box-shadow:inset 2px 2px #b3b3c0,inset -2px -2px #47474e,0 3px #09090b}
+.navitem.active:before{content:"";border-top:1px solid #ffffff66;border-left:1px solid #ffffff66;border-right:1px solid #22222988;border-bottom:1px solid #22222988;margin:0}
+.navitem.active svg{border-color:#f1d79a;background:#3f3930}
+.quick{min-height:57px;font-size:17px}.quick span{font-size:23px}
+.tab{min-height:39px;font-size:16px}.tab.active{background-image:linear-gradient(#9b9baa,#6f6f83);color:#fff}
+.toggle.on{background-image:linear-gradient(#81868b,#5f6268)}
+.mapctrl button{min-width:42px;height:42px}
+/* Inventory windows and slots: highlight top-left stone border, dark carved interior. */
+.panel,.stat{border:4px solid #77777e;border-top-color:#b2b2b9;border-left-color:#9b9ba4;border-right-color:#1b1b1f;border-bottom-color:#17171b;background-color:#29292f;background-image:repeating-linear-gradient(90deg,#ffffff03 0px,#ffffff03 2px,transparent 2px,transparent 16px),repeating-linear-gradient(0deg,#00000012 0px,#00000012 2px,transparent 2px,transparent 16px),linear-gradient(#303036,#27272e);box-shadow:inset 2px 2px #47474e,inset -2px -2px #141418,5px 6px #09090c}
+.panelhead{background:linear-gradient(#42424b,#303037);border-bottom:4px solid #1a1a1e;box-shadow:inset 0 -2px #5f5f68}
+.stat .stat-icon{border:3px solid #17171b;border-top-color:#111116;border-left-color:#111116;border-right-color:#696972;border-bottom-color:#666670;background:#212128}
+.terminal{border:4px solid #65656c;border-top-color:#1b1b21;border-left-color:#1b1b21;border-bottom-color:#878790;border-right-color:#83838b;background:#0b0c0f}
+.terminalhead{background:#1f2025}
+.terminalinput{background:#16161b}
+.sidebar{background:#1b1b20;background-image:repeating-linear-gradient(90deg,transparent 0 14px,#ffffff03 14px 16px),linear-gradient(#232329,#17171b)}
+.side-top{background:#24242a}
+.search,.field input,.field select,.field textarea{font-size:16px}
+/* Real mobile app shell, not a horizontally scrolling desktop sidebar. */
+.mobile-head,.mobile-bottom,.navshade{display:none}
+@media(max-width:750px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .app{display:block;min-height:100dvh}
+  .mobile-head{display:flex;position:sticky;top:0;z-index:75;height:64px;align-items:center;gap:12px;padding:8px 14px;background:#242429;border-bottom:4px solid #0b0b0e;box-shadow:0 3px #55555e}
+  .mobile-menu-btn{display:grid;place-items:center;flex:none;width:42px;height:42px;padding:0;font:700 23px var(--pixel)}
+  .mobile-head-brand{font:700 23px/1 var(--pixel);letter-spacing:.2px;color:#f4f4f5;text-shadow:2px 3px #09090b;min-width:0}
+  .mobile-head-brand em{font-style:normal;color:#e4c995}
+  .mobile-head-brand small{display:block;font:700 10px/1.1 var(--pixel);color:#adadb5;letter-spacing:1.3px;padding-top:4px}
+  .mobile-head .mobile-status{margin-left:auto;flex:none;font:700 12px var(--pixel);border:2px solid #a78d63;color:#f4daa9;padding:5px 7px;background:#3f362b;white-space:nowrap}
+  .navshade{display:block;position:fixed;inset:0;background:#050507bb;opacity:0;pointer-events:none;z-index:100;transition:opacity .18s}
+  body.menu-open .navshade{opacity:1;pointer-events:auto}
+  .sidebar{position:fixed;top:0;bottom:0;left:0;z-index:110;width:min(86vw,320px);height:100dvh;min-height:0;max-height:100dvh;transform:translateX(-110%);transition:transform .2s ease;overflow-y:auto;overscroll-behavior:contain;border-right:5px solid #09090b;border-bottom:0;box-shadow:4px 0 #686871;display:flex;flex-direction:column}
+  body.menu-open .sidebar{transform:translateX(0)}
+  .side-top{padding:22px 16px}.side-label{display:block;margin:20px 17px 8px}
+  .navigation{display:flex;flex-direction:column;overflow:visible;max-width:none;padding:0 12px 16px;gap:0}
+  .navitem{width:100%;flex:none;white-space:normal;font-size:17px;min-height:52px}
+  .navitem span{font-size:inherit}.navcount{display:inline-flex}.sidebar-bottom{display:block;margin-top:auto;padding:15px}
+  .main{padding:0 14px calc(116px + env(safe-area-inset-bottom));width:100%;max-width:100%}
+  .topbar{height:44px;border-bottom:2px solid #383840;box-shadow:none}
+  .topbar .clock{font-size:12px}.topbar .userchip{display:none}.topbar .pixel-tag{display:none}
+  .breadcrumb{font-size:13px}
+  .pagehead{padding:22px 0 19px;gap:13px}
+  .pagehead h2{font-size:clamp(29px,8vw,37px);line-height:1.08}
+  .pagehead p{font-size:13px;line-height:1.55;max-width:46ch}
+  .pagehead .buttons{display:flex;width:100%;flex-wrap:wrap;gap:8px}
+  .pagehead .buttons .btn{flex:1 1 auto;min-width:110px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .stat{min-height:115px;padding:12px 11px;min-width:0}
+  .statnum{font-size:clamp(25px,7vw,33px);margin-top:10px}.statlabel{font-size:12px}.statfoot{font-size:11px;line-height:1.3}
+  .stat .stat-icon{width:27px;height:27px;right:8px;top:9px;font-size:13px}
+  .grid,.grid[style*="grid-template-columns"]{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:13px}
+  .panel{margin-bottom:13px;min-width:0}.panelhead{padding:11px 12px;min-height:49px;gap:8px;flex-wrap:wrap}
+  .panelhead h3{font-size:16px}.panelhead .hint{font-size:12px}
+  .panelbody{padding:13px}
+  .banner{padding:12px;gap:10px;flex-wrap:wrap}.banner .orb{width:32px;height:32px;flex:none}.banner b{font-size:14px}.banner p{font-size:12px}.banner button{margin-left:0}
+  .terminalinput{gap:5px}.terminalinput input{min-width:0;width:100%;font-size:16px}
+  .terminalinput button{min-height:44px;padding:8px 13px}
+  .consolelines{font-size:13px;line-height:1.5;word-break:break-word;overflow-wrap:anywhere}
+  .tablewrap{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  .table td,.table th{padding:11px 10px}
+  .search{width:100%;max-width:none;min-height:43px;flex-basis:100%}
+  .quickgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.quick{min-width:0;min-height:55px;font-size:14px;padding:10px}
+  .mapbox{aspect-ratio:1/1;min-height:250px;max-height:480px;touch-action:manipulation}.maphud{font-size:11px;padding:6px;top:8px;left:8px}.mapctrl{right:8px;bottom:8px}.legend{gap:9px}
+  .dialogback{z-index:250;padding:10px 10px calc(10px + env(safe-area-inset-bottom));align-items:flex-end}
+  .dialog{max-height:min(88dvh,720px);width:100%;box-shadow:5px 5px #050507}.dialogbody{padding:15px}.dialoghead{padding:14px 16px}
+  .dialogfooter{justify-content:stretch}.dialogfooter .btn{flex:1 1 45%;min-height:45px}
+  .toastbox{left:12px;right:12px;bottom:calc(88px + env(safe-area-inset-bottom));width:auto;z-index:260}
+  .mobile-bottom{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:80;gap:3px;padding:8px 7px calc(8px + env(safe-area-inset-bottom));background:#202025;border-top:4px solid #72727c;box-shadow:0 -3px #0a0a0d}
+  .mobile-tab{min-width:0;min-height:60px;padding:5px 2px 4px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center;border-width:2px;background-image:linear-gradient(#38383e,#29292e);border-color:#73737b #121216 #121216 #73737b;box-shadow:inset 1px 1px #515159,inset -1px -1px #17171b,0 2px #09090c;font:700 10px var(--pixel);white-space:nowrap}
+  .mobile-tab:before{inset:2px}
+  .mobile-tab .tab-icon{height:23px;line-height:23px;font:700 24px var(--pixel);display:grid;place-items:center}
+  .mobile-tab.active{color:#fff8df;background-image:linear-gradient(#8d8993,#686671);border-color:#e0d6ec #3a3742 #3a3742 #c9c0d1;box-shadow:inset 2px 2px #a8a2b1,inset -2px -2px #4a4551,0 2px #08080b}
+  .mobile-tab.active .tab-icon{color:#f3d69f}
+  body.menu-open{overflow:hidden}
+}
+@media(max-width:350px){.main{padding-left:9px;padding-right:9px}.mobile-head{padding:8px 9px}.mobile-head-brand{font-size:20px}.mobile-tab{font-size:9px}.mobile-tab .tab-icon{font-size:21px}.pagehead h2{font-size:29px}.statnum{font-size:24px}}
+@media(hover:none){.btn,.quick,.navitem,.mobile-tab{transition:none}.btn:focus:not(:focus-visible),.quick:focus:not(:focus-visible){outline:0}}
+@media(prefers-reduced-motion:reduce){.sidebar,.navshade,.btn,.mobile-tab{transition:none}}
+</style>
+<style id="mobile-inventory-cards">
+/* Full-width inventory slots instead of desktop tables squished onto a phone */
+@media(max-width:750px){
+  #page-players .table,#page-moderation .table,#page-anticheat .table{display:block;width:100%;white-space:normal;min-width:0}
+  #page-players .table thead,#page-moderation .table thead,#page-anticheat .table thead{display:none}
+  #allPlayers,#moderationRows,#flagRows{display:grid;gap:11px;padding:11px;background:#19191f}
+  #allPlayers tr,#moderationRows tr,#flagRows tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px 9px;min-width:0;padding:10px 12px 12px;background:#303037;border:3px solid;border-color:#a3a3ac #17171c #17171c #9999a1;box-shadow:inset 2px 2px #4e4e58,inset -2px -2px #1c1c20,3px 4px #09090b}
+  #allPlayers td,#moderationRows td,#flagRows td{display:block;min-width:0;padding:6px 3px!important;border:0!important;overflow-wrap:anywhere;font-size:13px;text-align:left}
+  #allPlayers td:before,#moderationRows td:before,#flagRows td:before{content:'';display:block;color:#9e9ea8;font:700 11px/1.4 var(--pixel);letter-spacing:.4px;margin-bottom:5px}
+  #allPlayers td:first-child,#flagRows td:first-child{grid-column:1/-1;padding-bottom:10px!important;margin-bottom:3px;border-bottom:2px solid #17171c!important}
+  #allPlayers td:nth-child(2):before{content:'STATUS'}#allPlayers td:nth-child(3):before{content:'PING'}#allPlayers td:nth-child(4):before{content:'WORLD'}#allPlayers td:nth-child(5):before{content:'COORDS'}#allPlayers td:nth-child(6):before{content:'WARNS'}
+  #allPlayers td:nth-child(5){grid-column:span 2}#allPlayers td:nth-child(7){grid-column:1/-1;padding-top:8px!important}#allPlayers td:nth-child(7) button{width:100%;min-height:42px}
+  #moderationRows tr,#flagRows tr{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #moderationRows td:first-child:before{content:'TIME'}#moderationRows td:nth-child(2):before{content:'PLAYER'}#moderationRows td:nth-child(3):before{content:'ACTION'}#moderationRows td:nth-child(4):before{content:'REASON'}#moderationRows td:nth-child(5):before{content:'STAFF'}#moderationRows td:nth-child(6):before{content:'STATUS'}
+  #moderationRows td:nth-child(4){grid-column:1/-1;padding:8px 4px!important;background:#222228;border:1px solid #4b4b55!important}
+  #moderationRows td:nth-child(6) button{width:100%}
+  #flagRows td:nth-child(2):before{content:'CHECK'}#flagRows td:nth-child(3):before{content:'VIOLATION'}#flagRows td:nth-child(4):before{content:'FLAGGED'}#flagRows td:nth-child(5):before{content:'EVIDENCE'}
+  #flagRows td:nth-child(5) button{width:100%}
+  #page-overview #overviewPlayers td:nth-child(2),#page-overview #overviewPlayers td:nth-child(3){display:none}
+  #page-overview #overviewPlayers td:first-child{width:72%}
+  .tabs{max-width:100%;overflow-x:auto;display:flex;gap:4px;padding:4px 0}
+  .tab{flex:none;min-height:39px}
+}
+</style>
 </head>
 <body>
 <div class="app">
-<aside class="sidebar">
+<header class="mobile-head" aria-label="Mobile admin header">
+  <button class="mobile-menu-btn" id="mobileMenuOpen" type="button" aria-label="Open all sections" aria-expanded="false" aria-controls="sidebarNav">☰</button>
+  <div class="mobile-head-brand">TOPSY<em>FOX</em><small>ADMIN PANEL</small></div>
+  <span class="mobile-status">● DEMO</span>
+</header>
+<div class="navshade" id="mobileNavShade" aria-hidden="true"></div>
+
+<aside class="sidebar" id="sidebarNav">
  <div class="side-top"><div class="brand"><div class="fox" aria-hidden="true"></div><div><h1>TOPSY<em>FOX</em></h1><small>ADMIN PANEL</small></div></div></div>
  <div class="side-label">SERVER MENU</div>
  <nav class="navigation" aria-label="Main navigation">
@@ -82,6 +234,14 @@ body:before{content:'';position:fixed;inset:0;pointer-events:none;background-ima
  <section class="page" id="page-settings"><div class="pagehead"><div><div class="eyebrow">PANEL / CUSTOMIZATION</div><h2>Demo <span style="color:var(--green)">Settings</span></h2><p>Explore the interface without connecting to a server.</p></div></div><div class="grid"><div class="panel"><div class="panelhead"><h3>⚙ SIMULATION CONTROLS</h3></div><div class="panelbody"><div class="settingline"><div><strong>Demo server running</strong><p>Simulates network uptime. Not an actual server connection.</p></div><button class="toggle on" id="serverToggle">ON</button></div><div class="settingline"><div><strong>Staff notifications</strong><p>Show toast messages when test anti-cheat flags are generated.</p></div><button class="toggle on" id="alertsToggle">ON</button></div><div class="settingline"><div><strong>Simulate player arrival</strong><p>Add another sample player to the roster and map.</p></div><button class="btn ghost small" data-action="simulate-join">+ Add</button></div><div class="settingline"><div><strong>Simulate anti-cheat event</strong><p>Create a test flag and update the Watchtower.</p></div><button class="btn ghost small" data-action="simulate-flag">⚑ Flag</button></div><div style="margin-top:23px"><button class="btn danger" id="resetDemo">↻ Reset demo data</button></div></div></div><div class="panel"><div class="panelhead"><h3>▤ CONNECTION STATUS</h3></div><div class="panelbody"><span class="pixel-tag amber">NOT CONNECTED</span><p style="color:#d2dfce;line-height:1.8;margin:18px 0">This is a <b>standalone frontend prototype</b>. Buttons, console commands, bans, kicks, warnings, minimap and anti-cheat flags operate on sample data only.</p><p class="smalltxt muted">A real panel would require a secure, authenticated server backend/API. For now, there is intentionally no remote access or real-world moderation.</p><hr style="border:0;border-top:1px solid #4c604b;margin:19px 0"><div class="subtitle">BUILD INFORMATION</div><div class="smalltxt muted">TopsyFox Admin Panel · Website Prototype v0.1<br>HTML · CSS · JavaScript · 100% local<br>No packages or build step required.</div></div></div></div></section>
  </main>
 </div>
+<nav class="mobile-bottom" aria-label="Phone quick navigation">
+<button class="mobile-tab active" data-page="overview" aria-label="Overview" aria-current="page"><span class="tab-icon" aria-hidden="true">▦</span><span>Home</span></button>
+<button class="mobile-tab" data-page="console" aria-label="Console"><span class="tab-icon" aria-hidden="true">&gt;_</span><span>Console</span></button>
+<button class="mobile-tab" data-page="players" aria-label="Players"><span class="tab-icon" aria-hidden="true">♟</span><span>Players</span></button>
+<button class="mobile-tab" data-page="moderation" aria-label="Moderation"><span class="tab-icon" aria-hidden="true">⚒</span><span>Mod</span></button>
+<button class="mobile-tab" data-page="anticheat" aria-label="Anti-Cheat"><span class="tab-icon" aria-hidden="true">⚑</span><span>Flags</span></button>
+<button class="mobile-tab" data-page="map" aria-label="World Map"><span class="tab-icon" aria-hidden="true">▩</span><span>Map</span></button>
+</nav>
 </div>
 <div class="dialogback" id="dialogBack"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><div class="dialoghead"><h3 id="dialogTitle">Manage Player</h3><button id="dialogClose" aria-label="Close">×</button></div><div class="dialogbody" id="dialogBody"></div></div></div>
 <div class="toastbox" id="toastBox" aria-live="polite"></div>
@@ -173,7 +333,7 @@ function manage(id){const p=state.players.find(p=>p.id===id);if(!p)return;
  const banned=isBanned(p.name),flags=state.flags.filter(f=>f.name===p.name);showDialog(`Manage • ${p.name}`,`<div class="row" style="margin-bottom:17px">${playerAvatar(p)}<div><b>${escapeHtml(p.name)}</b><div class="psub">${p.online?'Online':'Offline'} · ${escapeHtml(p.role)} · ${p.ping}ms</div></div></div><div class="chipline" style="margin-bottom:20px"><span class="pixel-tag">${p.x}, ${p.y}, ${p.z}</span><span class="pixel-tag amber">${p.warns} WARNINGS</span><span class="pixel-tag ${banned?'red':'blue'}">${banned?'BANNED':flags.length+' FLAGS'}</span></div><div class="field"><label for="reason">MODERATION REASON</label><input id="reason" maxlength="150" placeholder="Reason for this action..."></div><div class="field"><label for="duration">BAN DURATION</label><select id="duration"><option value="Permanent">Permanent</option><option value="1 day">1 day</option><option value="7 days">7 days</option><option value="30 days">30 days</option></select></div><div class="buttons" style="margin-top:15px"><button class="btn ghost" data-modal-action="warn" data-id="${escapeHtml(id)}">⚠ Warn</button><button class="btn gold" data-modal-action="kick" data-id="${escapeHtml(id)}" ${p.online?'':'disabled'}>↪ Kick</button><button class="btn danger" data-modal-action="ban" data-id="${escapeHtml(id)}" ${banned?'disabled':''}>⚒ Ban</button>${banned?`<button class="btn ghost" data-modal-action="unban" data-id="${escapeHtml(id)}">Unban</button>`:''}</div><p class="smalltxt muted" style="margin:18px 0 0">All actions here are demo-only and update local records.</p>`)}
 function newModeration(){showDialog('New Moderation Action',`<div class="field"><label>PLAYER</label><select id="newTarget">${state.players.map(p=>`<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)}</option>`).join('')}</select></div><div class="field"><label>ACTION</label><select id="newType"><option value="warn">Warn</option><option value="kick">Kick</option><option value="ban">Ban</option></select></div><div class="field"><label>REASON</label><input id="newReason" maxlength="150" placeholder="Reason..."></div><div class="dialogfooter"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="submitMod">Execute demo action</button></div>`)}
 function showFlag(fid){const f=state.flags.find(x=>x.id===fid);if(!f)return;const p=player(f.name);showDialog(`Flag • ${f.check}`,`<div class="chipline" style="margin-bottom:16px"><span class="pixel-tag red">VL ${Number(f.vl).toFixed(1)}</span><span class="pixel-tag amber">REVIEW REQUIRED</span></div><div class="field"><label>PLAYER</label><strong>${escapeHtml(f.name)}</strong></div><div class="field"><label>CHECK</label><strong>${escapeHtml(f.check)}</strong></div><div class="field"><label>DETAILS</label><p style="margin:0;line-height:1.7">${escapeHtml(f.detail)}</p></div><div class="field"><label>RECORDED</label><span>${new Date(f.at).toLocaleString()}</span></div><p class="smalltxt muted">This is simulated evidence. A violation alone does not establish cheating.</p><div class="dialogfooter"><button class="btn ghost" data-close>Close</button>${p?`<button class="btn" data-manage="${escapeHtml(p.id)}">Manage Player</button>`:''}</div>`)}
-let currentPage='overview';function go(page){if(!document.querySelector('#page-'+page))return;currentPage=page;$$('.page').forEach(n=>n.classList.toggle('active',n.id==='page-'+page));$$('.navitem').forEach(n=>{n.classList.toggle('active',n.dataset.page===page);n.setAttribute('aria-current',n.dataset.page===page?'page':'false')});$('#crumb').textContent=page.toUpperCase();window.scrollTo(0,0);if(page==='map'){setTimeout(drawMap,20)}}
+let currentPage='overview';function go(page){if(!document.querySelector('#page-'+page))return;currentPage=page;$$('.page').forEach(n=>n.classList.toggle('active',n.id==='page-'+page));$$('.navitem,.mobile-tab').forEach(n=>{n.classList.toggle('active',n.dataset.page===page);n.setAttribute('aria-current',n.dataset.page===page?'page':'false')});closeMobileMenu();$('#crumb').textContent=page.toUpperCase();window.scrollTo(0,0);if(page==='map'){setTimeout(drawMap,20)}}
 function simulateFlag(){const p=online();if(!p.length){toast('No online demo players',true);return}const choice=p[Math.floor(Math.random()*p.length)],checks=['Reach A','KillAura B','Speed B','AutoClicker C','Fly A'],check=checks[Math.floor(Math.random()*checks.length)],vl=+(3+Math.random()*13).toFixed(1);state.flags.unshift({id:id(),name:choice.name,check,vl,at:Date.now(),detail:'Simulated sample event • inspect before acting'});log(`[AntiCheat] ${choice.name} failed ${check} (VL: ${vl})`,'warn');save();render();if(state.alerts)toast(`⚑ Flag: ${choice.name} • ${check}`)}
 function simulateJoin(){let idx=state.counter++;const name=`TestMiner${idx}`;state.players.push({id:id(),name,online:true,ping:22+Math.floor(Math.random()*120),x:Math.floor(Math.random()*180)-90,y:66,z:Math.floor(Math.random()*150)-75,world:'overworld',role:'Member',warns:0});log(`[Server] ${name} joined the game`,'success');save();render();toast(`${name} joined (demo)`)}
 const commands=['list','say Hello TopsyFox!','time set day','time set night','weather clear','weather rain','save-all','tps','status','help'];$('#commandChips').innerHTML=commands.map(c=>`<button class="btn small ghost" data-command="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
@@ -210,6 +370,16 @@ document.addEventListener('click',e=>{if(e.target.id==='submitMod'){const p=stat
 $('#serverToggle').onclick=()=>{state.serverOn=!state.serverOn;log('Demo server switched '+(state.serverOn?'ON':'OFF'),state.serverOn?'success':'warn');save();render()};$('#alertsToggle').onclick=()=>{state.alerts=!state.alerts;save();render();toast('Demo staff alerts '+(state.alerts?'enabled':'muted'))};$('#resetDemo').onclick=()=>{showDialog('Reset local demo?',`<p class="muted" style="line-height:1.7">This will restore all sample players, bans, warning records, console history, flags and settings. No real server is affected.</p><div class="dialogfooter"><button class="btn ghost" data-close>Cancel</button><button class="btn danger" id="confirmReset">Reset simulation</button></div>`)};
 document.addEventListener('click',e=>{if(e.target.id==='confirmReset'){state=fresh();save();closeDialog();render();go('overview');toast('Demo data reset')}});
 function tickClock(){$('#localTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}tickClock();setInterval(tickClock,1000);
+
+// Mobile app shell: bottom tabs stay synced with desktop navigation.
+const menuBtn=$('#mobileMenuOpen'), shade=$('#mobileNavShade');
+function closeMobileMenu(){document.body.classList.remove('menu-open');menuBtn.setAttribute('aria-expanded','false')}
+function openMobileMenu(){document.body.classList.add('menu-open');menuBtn.setAttribute('aria-expanded','true')}
+menuBtn.addEventListener('click',()=>document.body.classList.contains('menu-open')?closeMobileMenu():openMobileMenu());
+shade.addEventListener('click',closeMobileMenu);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu()});
+window.addEventListener('resize',()=>{if(innerWidth>750)closeMobileMenu()});
+
 window.addEventListener('resize',()=>{if(currentPage==='map')drawMap()});render();
 })();
 </script>
