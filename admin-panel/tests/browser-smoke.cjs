@@ -44,6 +44,12 @@ async function run() {
     assert.equal(navColor, 'rgb(40, 41, 44)');
     await page.screenshot({path:path.join(shots,'desktop-overview.png'),fullPage:true});
     await page.locator('.navitem[data-page="settings"]').click();
+    assert.equal(new URL(page.url()).hash,'#settings');
+    await page.locator('.navitem[data-page="settings"]').focus();
+    await page.keyboard.press('ArrowLeft');
+    assert.equal(await page.locator('#page-map').isVisible(),true);
+    assert.equal(new URL(page.url()).hash,'#map');
+    await page.locator('.navitem[data-page="settings"]').click();
     assert.equal(await page.locator('#page-settings').isVisible(), true);
     await page.locator('#oreDensity').selectOption('compact');
     assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('ore-compact')),true);
@@ -55,6 +61,7 @@ async function run() {
     assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('ore-hide-tips')),true);
     await page.screenshot({path:path.join(shots,'desktop-settings.png'),fullPage:true});
     await page.reload({waitUntil:'domcontentloaded'});
+    assert.equal(await page.locator('#page-settings').isVisible(),true);
     assert.equal(await page.locator('#oreConsoleSize').inputValue(),'17');
     assert.equal(await page.locator('#oreDensity').inputValue(),'compact');
     assert.equal(await page.locator('#oreTimestamps').isChecked(),false);
