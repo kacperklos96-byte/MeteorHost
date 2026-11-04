@@ -1,26 +1,32 @@
-# TopsyFox Ore-inspired panel design
+# TopsyFox Ore UI reference fidelity
 
-The TopsyFox admin-panel frontend now uses an original Ore UI-inspired CSS theme (`ore-ui.css`) with no Mojang texture or code assets copied.
+The design is based primarily on the **user-supplied Ore UI design-system screenshots** and the [Minecraft Wiki Ore UI article](https://minecraft.wiki/w/Ore_UI). Other background references: [Mojang's Ore UI repository](https://github.com/Mojang/ore-ui) and Minecraft Bedrock's 2026 main menu/settings refresh.
 
-Visual references reviewed (2026):
-- Minecraft Bedrock Preview 26.60.29 new main menu: https://www.minecraft.net/fi-fi/article/minecraft-preview-26-60-29
-- Mojang's 2026 settings refresh: https://feedback.minecraft.net/hc/en-us/community/posts/36960637452557-Let-s-talk-about-our-updated-audio-settings-Bedrock
-- Bedrock Create New World design: https://www.minecraft.net/en-us/article/creating-create-new-world
-- Ore UI developer metarepository: https://github.com/Mojang/ore-ui
+## Specific choices from the reference screenshots
 
-## Design choices
-- Light, full-width menu header with Bedrock-like flat dark text.
-- Left sidebar of Minecraft-style light raised buttons; green selected state.
-- Substantial separation between major sections with pale section headings.
-- Square, beveled clickable elements; no rounded SaaS cards or gradients.
-- Server-world preview uses original SVG pixel art rather than copied Minecraft screenshots.
-- Overview retains existing live demo DOM IDs and JS; console, players, moderation, anti-cheat, map and settings remain intact.
-- Mobile gets a drawer and a persistent quick-navigation strip with the same functional controls.
+- Charcoal/black background, with independent gray rectangular content panels.
+- Dark gray **horizontal tabs** at the top, selected with a short white underline.
+- Primary buttons have a flat Minecraft green surface and dark green bottom edge.
+- Secondary buttons are pale gray/white with a 3D pixel border and dark label.
+- Destructive controls are red rather than green, with matched pixel edges.
+- All list rows are charcoal with labeled descriptions and controls on the right.
+- Switches have square green/gray tracks; checkboxes have rectangular green checked states.
+- The console text-size slider has a green progress track and a large square thumb.
+- A dropdown has a dark charcoal field. A blue information strip communicates saved settings.
+- Typography uses the open-source **Pixelify Sans** web font as a pixel-inspired approximation, not the official proprietary Minecraft font files.
+- No rounded SaaS cards, glossy gradients, blurred glass, or unrelated neon colors.
+- The small world preview is custom SVG pixel art, not Mojang-protected UI art.
 
-## Scope
-Frontend demonstration only. Console, bans, anti-cheat checks, server state and terrain are simulated in JavaScript/localStorage. No server-side authentication or real Minecraft control service.
+## Functionality and constraints
 
-## Validation
-Static smoke test at `tests/smoke.py` enforces required element IDs, original script integrity signals, required visual style selectors, and relative asset links. GitHub CI can also verify embedded JavaScript parses with Node.js.
+The demo still has the original seven pages (overview, console, players, moderation, anti-cheat, map, settings). Old browser demo data is preserved; new visual controls use their own local-storage key. The interface is responsive: desktop uses Ore-like horizontal tabs; phone uses a compact top bar, slide-out menu and quick-navigation strip. Real player/server integration is not implemented and must be secured before being used for administration.
 
-This is a web recreation of the visual language, not Mojang's Ore UI runtime and not affiliated with Mojang.
+## Verification
+
+- Static parser and JavaScript syntax smoke: `tests/smoke.py`
+- Interactive Chromium test: `tests/browser-smoke.cjs`
+- Desktop/mobile screenshots: uploaded as build artifacts by `admin-panel-qa.yml`
+- Screens tested at 1440 × 900 desktop and 390 × 844 phone, including navigation, console, interactive UI options and persisted preferences.
+- Manual browser testing with real users and devices is still useful.
+
+Ore UI is Mojang's work; this interface is an independent **Ore-inspired** recreation, not official Mojang components.

@@ -4,7 +4,7 @@ A standalone, dark stone-gray Minecraft-inspired HTML/CSS/JavaScript admin dashb
 
 ## Open
 
-Double-click `index.html` in a web browser. It runs locally and works offline.
+Open https://kacperklos96-byte.github.io/MeteorHost/admin-panel/ or serve the `admin-panel/` folder locally via a static server. The demo functionality works offline; the optional Google-hosted Pixelify Sans font requires an internet connection to download unless already cached.
 
 ## Sections
 
@@ -14,7 +14,7 @@ Double-click `index.html` in a web browser. It runs locally and works offline.
 - **Moderation:** ban/kick/warn simulation, history and ban reversal.
 - **Anti-Cheat:** example flags, details, check toggles, and new simulated detection events.
 - **World Map:** synthetic pixel-art terrain with clickable simulated player markers and zoom controls.
-- **Settings:** add demo players, create flags, stop/start the simulation and reset all sample data.
+- **Settings:** add demo players, create flags, stop/start the simulation and reset demo data. Ore-style controls provide compact layout, adjustable console font size, timestamp visibility and demo-tip visibility, persisted in the browser.
 
 ## Important
 
@@ -28,3 +28,7 @@ Created for TopsyFox Network. Hosted path: `admin-panel/` in the `MeteorHost` re
 The current interface has **one maintained Ore UI-inspired stylesheet** in `ore-ui.css`, with responsive desktop and mobile layouts. The older embedded theme is no longer loaded.
 
 See `ORE-UI-DESIGN.md` for verified 2026 references, design decisions, and disclaimers.
+
+## Visual testing
+
+GitHub Actions workflow `TopsyFox Ore UI Website QA` verifies the HTML/CSS and runs a Chromium browser smoke test at desktop and mobile widths, checks page navigation and functional settings, and uploads four screenshots as workflow artifacts. The full website remains demo-only and is not a live server console.
