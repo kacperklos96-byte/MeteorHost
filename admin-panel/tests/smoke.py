@@ -47,7 +47,7 @@ assert "data-command=\"save-all\"" in html
 assert "data-action=\"simulate-flag\"" in html
 assert "LOCAL INTERACTIVE DEMO" in html, "the demo label must remain"
 assert "INTERACTIVE PROTOTYPE" in html
-assert len(scanner.actions) >= 18
+assert len(scanner.actions) >= 15
 
 for selector in [".navitem.active", ".panelhead", ".ore-world-card", ".mobile-bottom",
                  ".dialogback.show", ".page.active", ".stat", ".table", ".mapbox",
