@@ -1,0 +1,32 @@
+name: TopsyFox Ore UI Website QA
+
+on:
+  push:
+    branches:
+      - main
+      - feature/ore-ui-admin-redesign
+    paths:
+      - "admin-panel/**"
+      - ".github/workflows/admin-panel-qa.yml"
+  pull_request:
+    paths:
+      - "admin-panel/**"
+      - ".github/workflows/admin-panel-qa.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify DOM, new stylesheet and JavaScript syntax
+        run: python3 admin-panel/tests/smoke.py
+      - name: Verify homepage not overwritten
+        run: |
+          test -f index.html
+          grep -q "MeteorHost" index.html
