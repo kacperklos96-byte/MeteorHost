@@ -366,19 +366,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu()});
 window.addEventListener('resize',()=>{if(innerWidth>760)closeMobileMenu()});
 
 // Mirror Ore's focus-friendly horizontal menu controls without changing click navigation.
-for(const selector of ['.navigation','.mobile-bottom']){
- const bar=document.querySelector(selector);if(!bar)continue;
- bar.addEventListener('keydown',e=>{
-  if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
-  const items=[...bar.querySelectorAll('[data-page]')];
-  const index=items.indexOf(document.activeElement);
-  if(index<0)return;
-  e.preventDefault();
-  let next=e.key==='Home'?0:e.key==='End'?items.length-1:
-   (index+(e.key==='ArrowRight'?1:-1)+items.length)%items.length;
-  items[next].focus();go(items[next].dataset.page);
- });
-}
+document.addEventListener('keydown',e=>{
+ if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+ const target=e.target.closest?.('.navigation .navitem,.mobile-bottom .mobile-tab');
+ if(!target)return;
+ const bar=target.closest('.navigation,.mobile-bottom');
+ const items=[...bar.querySelectorAll('[data-page]')];
+ const index=items.indexOf(target);
+ if(index<0)return;
+ e.preventDefault();
+ const next=e.key==='Home'?0:e.key==='End'?items.length-1:
+  (index+(e.key==='ArrowRight'?1:-1)+items.length)%items.length;
+ items[next].focus();go(items[next].dataset.page);
+});
 window.addEventListener('hashchange',()=>{
  const route=location.hash.slice(1);
  if(document.querySelector('#page-'+route))go(route);
