@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#222326">
 <title>TopsyFox | Control Center</title>
 
-<link rel="stylesheet" href="./ore-ui.css?v=20261104-2">
+<link rel="stylesheet" href="./ore-ui.css?v=20261104-3">
 
 
 
@@ -282,7 +282,7 @@ function manage(id){const p=state.players.find(p=>p.id===id);if(!p)return;
  const banned=isBanned(p.name),flags=state.flags.filter(f=>f.name===p.name);showDialog(`Manage • ${p.name}`,`<div class="row" style="margin-bottom:17px">${playerAvatar(p)}<div><b>${escapeHtml(p.name)}</b><div class="psub">${p.online?'Online':'Offline'} · ${escapeHtml(p.role)} · ${p.ping}ms</div></div></div><div class="chipline" style="margin-bottom:20px"><span class="pixel-tag">${p.x}, ${p.y}, ${p.z}</span><span class="pixel-tag amber">${p.warns} WARNINGS</span><span class="pixel-tag ${banned?'red':'blue'}">${banned?'BANNED':flags.length+' FLAGS'}</span></div><div class="field"><label for="reason">MODERATION REASON</label><input id="reason" maxlength="150" placeholder="Reason for this action..."></div><div class="field"><label for="duration">BAN DURATION</label><select id="duration"><option value="Permanent">Permanent</option><option value="1 day">1 day</option><option value="7 days">7 days</option><option value="30 days">30 days</option></select></div><div class="buttons" style="margin-top:15px"><button class="btn ghost" data-modal-action="warn" data-id="${escapeHtml(id)}">⚠ Warn</button><button class="btn gold" data-modal-action="kick" data-id="${escapeHtml(id)}" ${p.online?'':'disabled'}>↪ Kick</button><button class="btn danger" data-modal-action="ban" data-id="${escapeHtml(id)}" ${banned?'disabled':''}>⚒ Ban</button>${banned?`<button class="btn ghost" data-modal-action="unban" data-id="${escapeHtml(id)}">Unban</button>`:''}</div><p class="smalltxt muted" style="margin:18px 0 0">All actions here are demo-only and update local records.</p>`)}
 function newModeration(){showDialog('New Moderation Action',`<div class="field"><label>PLAYER</label><select id="newTarget">${state.players.map(p=>`<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)}</option>`).join('')}</select></div><div class="field"><label>ACTION</label><select id="newType"><option value="warn">Warn</option><option value="kick">Kick</option><option value="ban">Ban</option></select></div><div class="field"><label>REASON</label><input id="newReason" maxlength="150" placeholder="Reason..."></div><div class="dialogfooter"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="submitMod">Execute demo action</button></div>`)}
 function showFlag(fid){const f=state.flags.find(x=>x.id===fid);if(!f)return;const p=player(f.name);showDialog(`Flag • ${f.check}`,`<div class="chipline" style="margin-bottom:16px"><span class="pixel-tag red">VL ${Number(f.vl).toFixed(1)}</span><span class="pixel-tag amber">REVIEW REQUIRED</span></div><div class="field"><label>PLAYER</label><strong>${escapeHtml(f.name)}</strong></div><div class="field"><label>CHECK</label><strong>${escapeHtml(f.check)}</strong></div><div class="field"><label>DETAILS</label><p style="margin:0;line-height:1.7">${escapeHtml(f.detail)}</p></div><div class="field"><label>RECORDED</label><span>${new Date(f.at).toLocaleString()}</span></div><p class="smalltxt muted">This is simulated evidence. A violation alone does not establish cheating.</p><div class="dialogfooter"><button class="btn ghost" data-close>Close</button>${p?`<button class="btn" data-manage="${escapeHtml(p.id)}">Manage Player</button>`:''}</div>`)}
-let currentPage='overview';function go(page){if(!document.querySelector('#page-'+page))return;currentPage=page;$$('.page').forEach(n=>n.classList.toggle('active',n.id==='page-'+page));$$('.navitem,.mobile-tab').forEach(n=>{n.classList.toggle('active',n.dataset.page===page);n.setAttribute('aria-current',n.dataset.page===page?'page':'false')});closeMobileMenu();$('#crumb').textContent=page.toUpperCase();window.scrollTo(0,0);if(page==='map'){setTimeout(drawMap,20)}}
+let currentPage='overview';function go(page){if(!document.querySelector('#page-'+page))return;currentPage=page;if(location.hash!=='#'+page)history.replaceState(null,'','#'+page);$('.page').forEach(n=>n.classList.toggle('active',n.id==='page-'+page));$$('.navitem,.mobile-tab').forEach(n=>{n.classList.toggle('active',n.dataset.page===page);n.setAttribute('aria-current',n.dataset.page===page?'page':'false')});closeMobileMenu();$('#crumb').textContent=page.toUpperCase();window.scrollTo(0,0);if(page==='map'){setTimeout(drawMap,20)}}
 function simulateFlag(){const p=online();if(!p.length){toast('No online demo players',true);return}const choice=p[Math.floor(Math.random()*p.length)],checks=['Reach A','KillAura B','Speed B','AutoClicker C','Fly A'],check=checks[Math.floor(Math.random()*checks.length)],vl=+(3+Math.random()*13).toFixed(1);state.flags.unshift({id:id(),name:choice.name,check,vl,at:Date.now(),detail:'Simulated sample event • inspect before acting'});log(`[AntiCheat] ${choice.name} failed ${check} (VL: ${vl})`,'warn');save();render();if(state.alerts)toast(`⚑ Flag: ${choice.name} • ${check}`)}
 function simulateJoin(){let idx=state.counter++;const name=`TestMiner${idx}`;state.players.push({id:id(),name,online:true,ping:22+Math.floor(Math.random()*120),x:Math.floor(Math.random()*180)-90,y:66,z:Math.floor(Math.random()*150)-75,world:'overworld',role:'Member',warns:0});log(`[Server] ${name} joined the game`,'success');save();render();toast(`${name} joined (demo)`)}
 const commands=['list','say Hello TopsyFox!','time set day','time set night','weather clear','weather rain','save-all','tps','status','help'];$('#commandChips').innerHTML=commands.map(c=>`<button class="btn small ghost" data-command="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
@@ -365,7 +365,27 @@ shade.addEventListener('click',closeMobileMenu);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu()});
 window.addEventListener('resize',()=>{if(innerWidth>760)closeMobileMenu()});
 
+// Mirror Ore's focus-friendly horizontal menu controls without changing click navigation.
+for(const selector of ['.navigation','.mobile-bottom']){
+ const bar=document.querySelector(selector);if(!bar)continue;
+ bar.addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+  const items=[...bar.querySelectorAll('[data-page]')];
+  const index=items.indexOf(document.activeElement);
+  if(index<0)return;
+  e.preventDefault();
+  let next=e.key==='Home'?0:e.key==='End'?items.length-1:
+   (index+(e.key==='ArrowRight'?1:-1)+items.length)%items.length;
+  items[next].focus();go(items[next].dataset.page);
+ });
+}
+window.addEventListener('hashchange',()=>{
+ const route=location.hash.slice(1);
+ if(document.querySelector('#page-'+route))go(route);
+});
 window.addEventListener('resize',()=>{if(currentPage==='map')drawMap()});render();
+const initialRoute=location.hash.slice(1);
+if(document.querySelector('#page-'+initialRoute))go(initialRoute);
 })();
 </script>
 </body>
