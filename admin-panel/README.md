@@ -1,6 +1,6 @@
 # TopsyFox Admin Panel — Website Prototype
 
-A standalone, dark stone-gray Minecraft-inspired HTML/CSS/JavaScript admin dashboard. The whole interface lives in **index.html**: no framework, package installation, build process or Minecraft plugin required. The mobile layout and all demo controls are included.
+A standalone, dark stone-gray Minecraft-inspired HTML/CSS/JavaScript admin dashboard. The functionality lives in **index.html** and its Ore UI-inspired styling in **ore-ui.css**: no framework, package installation, build process or Minecraft plugin required. The mobile layout and all demo controls are included.
 
 ## Open
 
@@ -25,6 +25,6 @@ If you eventually want to administer a real server, that requires a separate bac
 Created for TopsyFox Network. Hosted path: `admin-panel/` in the `MeteorHost` repository. Live URL: https://kacperklos96-byte.github.io/MeteorHost/admin-panel/.
 ## Styles and hosting
 
-The current interface has **one maintained stylesheet** embedded in `index.html` (`topsyfox-admin-theme`). Previous experimental CSS themes, override stacks and gradient effects have been removed from the current file. Older snapshots remain in normal Git commit history only; history was not rewritten.
+The current interface has **one maintained Ore UI-inspired stylesheet** in `ore-ui.css`, with responsive desktop and mobile layouts. The older embedded theme is no longer loaded.
 
-This private repository is the canonical home for the demo. The temporary GitHub Pages copy in the separate MeteorHost repository has been deleted; this project currently has **no public website**. Keep future private control APIs and credentials out of static hosting.
+See `ORE-UI-DESIGN.md` for verified 2026 references, design decisions, and disclaimers.
