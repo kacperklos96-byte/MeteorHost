@@ -328,7 +328,7 @@ try{
  const stored=JSON.parse(localStorage.getItem(ORE_PREFS_KEY)||'null');
  if(stored&&typeof stored==='object'){
   orePrefs.density=stored.density==='compact'?'compact':'normal';
-  orePrefs.consoleSize=Math.clamp(Number(stored.consoleSize)||13,11,19);
+  orePrefs.consoleSize=Math.max(11,Math.min(19,Number(stored.consoleSize)||13));
   orePrefs.timestamps=stored.timestamps!==false;
   orePrefs.tips=stored.tips!==false;
  }
@@ -351,7 +351,7 @@ function saveOrePreferences(){
  applyOrePreferences();
 }
 $('#oreDensity').addEventListener('change',e=>{orePrefs.density=e.target.value==='compact'?'compact':'normal';saveOrePreferences()});
-$('#oreConsoleSize').addEventListener('input',e=>{orePrefs.consoleSize=Math.clamp(Number(e.target.value),11,19);saveOrePreferences()});
+$('#oreConsoleSize').addEventListener('input',e=>{orePrefs.consoleSize=Math.max(11,Math.min(19,Number(e.target.value)||13));saveOrePreferences()});
 $('#oreTimestamps').addEventListener('change',e=>{orePrefs.timestamps=e.target.checked;saveOrePreferences()});
 $('#oreDemoHints').addEventListener('change',e=>{orePrefs.tips=e.target.checked;saveOrePreferences()});
 applyOrePreferences();
@@ -363,7 +363,7 @@ function openMobileMenu(){document.body.classList.add('menu-open');menuBtn.setAt
 menuBtn.addEventListener('click',()=>document.body.classList.contains('menu-open')?closeMobileMenu():openMobileMenu());
 shade.addEventListener('click',closeMobileMenu);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu()});
-window.addEventListener('resize',()=>{if(innerWidth>750)closeMobileMenu()});
+window.addEventListener('resize',()=>{if(innerWidth>760)closeMobileMenu()});
 
 window.addEventListener('resize',()=>{if(currentPage==='map')drawMap()});render();
 })();

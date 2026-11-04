@@ -381,6 +381,7 @@ body.ore-compact .panelbody{padding:9px}
 body.ore-compact .table td{padding-top:6px;padding-bottom:6px}
 body.ore-compact .stat{min-height:75px}
 body.ore-hide-timestamps .logline .ts{display:none}
+body.ore-hide-tips #page-overview>.banner{display:none}
 body .consolelines{font-size:var(--console-size)}
 /* Device adaptation: preserve all seven page routes and mobile drawer. */
 @media(max-width:1350px){

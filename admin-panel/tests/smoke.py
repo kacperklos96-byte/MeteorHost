@@ -36,6 +36,7 @@ required = [
     "serverToggle", "alertsToggle", "mobileMenuOpen", "mobileNavShade",
     "dialogBack", "dialogTitle", "dialogBody", "toastBox", "localTime",
     "resetDemo", "commandChips", "flagSub", "crumb",
+    "oreDensity", "oreConsoleSize", "oreConsoleSizeValue", "oreTimestamps", "oreDemoHints",
 ]
 assert not (set(required) - set(scanner.ids)), "required DOM IDs removed"
 assert len(scanner.pages) == 7, f"Expected 7 pages, found {len(scanner.pages)}"
@@ -55,12 +56,16 @@ for selector in [".navitem.active", ".panelhead", ".ore-world-card", ".mobile-bo
     assert selector in css, f"missing styling for {selector}"
 assert css.count("{") == css.count("}"), "unbalanced CSS braces"
 assert "linear-gradient(" not in css, "avoid generic gradient dashboards"
+assert ".ore-hide-tips #page-overview>.banner" in css
 assert css.count("@media") >= 3, "responsive design missing"
 assert "Mojang" in css, "originality/license note removed"
 
 scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html)
 assert len(scripts) == 1, "expected a single retained app script"
 script = scripts[0]
+assert "Math.clamp(" not in script, "Math.clamp is not available in JavaScript"
+for control in ["oreDensity", "oreConsoleSize", "oreTimestamps", "oreDemoHints"]:
+    assert control in script, f"display control not wired: {control}"
 for required_js in ["function render(", "function go(", "function drawMap(", "function runCommand(",
                     "function renderPlayers(", "function simulateFlag(", "function tickClock("]:
     assert required_js in script, f"existing interactive behavior missing: {required_js}"
