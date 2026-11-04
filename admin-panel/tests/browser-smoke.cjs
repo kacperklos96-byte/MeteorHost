@@ -47,7 +47,7 @@ async function run() {
     assert.equal(await page.locator('#page-settings').isVisible(), true);
     await page.locator('#oreDensity').selectOption('compact');
     assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('ore-compact')),true);
-    await page.locator('#oreConsoleSize').fill('17');
+    await page.locator('#oreConsoleSize').evaluate(el=>{el.value='17';el.dispatchEvent(new Event('input',{bubbles:true}));});
     assert.equal(await page.locator('#oreConsoleSizeValue').innerText(),'17 px');
     await page.locator('#oreTimestamps').uncheck();
     assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('ore-hide-timestamps')),true);
