@@ -503,3 +503,29 @@ body .consolelines{font-size:var(--console-size)}
 @media(prefers-reduced-motion:reduce){
  *,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
+
+/* Ore UI refinement: tactile square tabs, crisp glyphs and readable navigation. */
+.navigation{scroll-snap-type:x proximity;scrollbar-width:none}
+.navigation::-webkit-scrollbar{display:none}
+.navitem{scroll-snap-align:start;touch-action:manipulation}
+.navitem svg,.btn svg{stroke-linecap:square;stroke-linejoin:miter;shape-rendering:crispEdges}
+@media(min-width:761px){
+ .navitem{border-width:2px;border-bottom-width:4px;
+   box-shadow:inset 1px 2px #696a6d,inset -1px -2px #2b2c2e}
+ .navitem.active{border-color:#17181a;background:#343537;
+   box-shadow:inset 1px 2px #67686b,inset -1px -2px #202123}
+ .navitem.active:after{bottom:0;height:4px;left:18%;right:18%}
+ .navitem:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+}
+@media(max-width:760px){
+ .mobile-tab{touch-action:manipulation}
+ .mobile-tab:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+ .navitem:focus-visible{outline:2px solid #fff;outline-offset:-5px}
+}
+.ore-world-card{box-shadow:inset 1px 1px #6a6b6c}
+.panel{box-shadow:inset 1px 1px #77787a}
+.ore-inputline:focus-within{background:#47484b}
+.btn:active,.quick:active,.tab:active,.terminalinput button:active,.mapctrl button:active{
+ border-bottom-width:2px;
+ box-shadow:inset 2px 2px #6a6a6c;
+}
