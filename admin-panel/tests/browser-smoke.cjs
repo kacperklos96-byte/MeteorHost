@@ -46,9 +46,7 @@ async function run() {
     await page.locator('.navitem[data-page="settings"]').click();
     assert.equal(new URL(page.url()).hash,'#settings');
     await page.locator('.navitem[data-page="settings"]').focus();
-    console.log('KEY NAV BEFORE', await page.evaluate(()=>({focused:document.activeElement?.getAttribute('data-page'),page:document.querySelector('.page.active')?.id,hash:location.hash})));
     await page.keyboard.press('ArrowLeft');
-    console.log('KEY NAV AFTER', await page.evaluate(()=>({focused:document.activeElement?.getAttribute('data-page'),page:document.querySelector('.page.active')?.id,hash:location.hash,buttons:document.querySelectorAll('.navigation .navitem').length})),errors);
     assert.equal(await page.locator('#page-map').isVisible(),true);
     assert.equal(new URL(page.url()).hash,'#map');
     await page.locator('.navitem[data-page="settings"]').click();
