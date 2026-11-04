@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/ore-ui-admin-redesign
+      - feature/ore-ui-reference-fidelity
     paths:
       - "admin-panel/**"
       - ".github/workflows/admin-panel-qa.yml"
@@ -26,6 +27,19 @@ jobs:
           node-version: '22'
       - name: Verify DOM, new stylesheet and JavaScript syntax
         run: python3 admin-panel/tests/smoke.py
+      - name: Install browser validation tools
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install chromium
+      - name: Check desktop and mobile in Chromium
+        run: node admin-panel/tests/browser-smoke.cjs
+      - name: Upload UI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: topsyfox-ore-ui-browser-screenshots
+          path: admin-panel/tests/screenshots/
+          if-no-files-found: ignore
       - name: Verify homepage not overwritten
         run: |
           test -f index.html
